@@ -3,6 +3,6 @@ echo "<script type='text/javascript">
 ?>
 <html>
 <head>
-<title>Aman</title>
+<title>Pawan</title>
 </head>
 </html>
