@@ -333,3 +333,37 @@ function resetCard() {
 //   const card = this;
 //   card.style.transform = 'none';
 // }
+
+
+
+
+const menuItems = document.querySelectorAll('.menu-item');
+const containerMenu = document.querySelector('.container-menu');
+const cart = containerMenu.querySelector('.cart');
+const tableBody = cart.querySelector('.table-body'); // Assuming you have a class named 'table-body'
+
+menuItems.forEach((item, index) => {
+  const addToCartIcon = item.querySelector('.fa-cart-plus');
+  addToCartIcon.addEventListener('click', () => {
+    const itemName = item.querySelector('.menu-content a').textContent;
+    const itemPrice = parseFloat(item.querySelector('.menu-content span').textContent.slice(1));
+    const itemId = index + 1;
+
+    const row = document.createElement('div');
+    row.className = 'table-row';
+    row.innerHTML = `
+      <div class="number">${itemId}</div>
+      <div class="name">${itemName}</div>
+      <div class="price">$${itemPrice.toFixed(2)}</div>
+      <div class="total">$${itemPrice.toFixed(2)}</div>
+      <div class="addToCart">Added</div>
+      <div class="remove">Remove</div>
+    `;
+
+    tableBody.appendChild(row);
+
+    // Show the container only when an item is added
+    containerMenu.style.display = 'block';
+  });
+});
+
