@@ -633,7 +633,100 @@ caption {
 .avatar-rounded {
   -webkit-border-radius: 50rem;
           border-radius: 50rem;
-  overflow: hidden; }
+  overflow: hidden; 
+}
+
+
+#cards-container{
+  /* background-color: red; */
+  /* margin-top: 5rem; */
+  height: 64vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  position: relative;
+  z-index: 10;
+}
+
+.card{
+  width: 300px;
+  height: 400px;
+  /* background-color: blue; */
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center ;
+  overflow: hidden;
+  transition: transform ease .5s;
+  will-change: transform ;
+}
+
+.overlay{
+  height: 100%;
+  width: 100%;
+  /* background-color: #95C11E; */
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 30px;
+  /* padding-top: 160px; */
+  opacity: 0;
+  transition: all ease .3s;
+
+  
+}
+
+.overlay h4{
+  /* color: #000; */
+  color: #cda45e;
+  font-size: 35px;
+  text-transform: uppercase;
+  font-weight: 900;
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+
+.overlay p{
+  /* color: #000; */
+  color: #cda45e;
+  font-size: 25px;
+}
+
+
+.card:hover .overlay{
+  opacity: 1;
+}
+
+.card:hover
+{
+  transform: rotate3d(-1,1,0,20deg);
+  cursor: pointer;
+}
+
+#card1{
+  background-image: url("../img/gallery/gallery-1.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#card2{
+  background-image: url("../img/gallery/gallery-4.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+
+@media (max-width: 768px) {
+  .card-container {
+    /* width: 100%;  */
+    /*  height: auto; */
+    display: flex;
+    flex-direction: column;
+    flex-grow: unset;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
 
 
 @media (min-width: 1024px) {
