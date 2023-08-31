@@ -278,92 +278,71 @@
 
 })()
 
-const cards = document.querySelectorAll('.card');
-
-cards.forEach(card => {
-  card.addEventListener('mousemove', rotateCard);
-  card.addEventListener('mouseout', resetCard);
-});
-
-function rotateCard(e) {
-  const card = this;
-  const cardRect = card.getBoundingClientRect();
-  const cardCenterX = cardRect.left + cardRect.width / 2;
-  const cardCenterY = cardRect.top + cardRect.height / 2;
-
-  const mouseX = e.clientX;
-  const mouseY = e.clientY;
-
-  const rotateX = (cardCenterY - mouseY) / 10;
-  const rotateY = (mouseX - cardCenterX) / 10;
-
-  card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-}
-
-function resetCard() {
-  const card = this;
-  card.style.transform = 'none';
-}
 
 
-// const cards = document.querySelectorAll('.card');
-
-// cards.forEach(card => {
-//   card.addEventListener('mousemove', moveWithCursor);
-//   card.addEventListener('mouseout', resetCardPosition);
-// });
-
-// function moveWithCursor(e) {
-//   const card = this;
-//   const cardRect = card.getBoundingClientRect();
-  
-//   const cardCenterX = cardRect.left + cardRect.width / 2;
-//   const cardCenterY = cardRect.top + cardRect.height / 2;
-
-//   const mouseX = e.clientX;
-//   const mouseY = e.clientY;
-
-//   const translateX = mouseX - cardCenterX;
-//   const translateY = mouseY - cardCenterY;
-
-//   card.style.transform = `translate(${translateX}px, ${translateY}px)`;
-// }
-
-// function resetCardPosition() {
-//   const card = this;
-//   card.style.transform = 'none';
-// }
-
-
-
-
+// Select all menu items
 const menuItems = document.querySelectorAll('.menu-item');
+
+// Select necessary elements
 const containerMenu = document.querySelector('.container-menu');
 const cart = containerMenu.querySelector('.cart');
-const tableBody = cart.querySelector('.table-body'); // Assuming you have a class named 'table-body'
+const tableBody = cart.querySelector('.table-body');
 
+// Counter for item numbers
+let itemCount = 1;
+
+// function to remove rows 
+function removeRow(row) {
+  tableBody.removeChild(row);
+  itemCount--; // Decrement the item count
+}
+
+// Iterate through each menu item
 menuItems.forEach((item, index) => {
   const addToCartIcon = item.querySelector('.fa-cart-plus');
   addToCartIcon.addEventListener('click', () => {
+    // Get item details
     const itemName = item.querySelector('.menu-content a').textContent;
     const itemPrice = parseFloat(item.querySelector('.menu-content span').textContent.slice(1));
-    const itemId = index + 1;
 
-    const row = document.createElement('div');
-    row.className = 'table-row';
-    row.innerHTML = `
-      <div class="number">${itemId}</div>
-      <div class="name">${itemName}</div>
-      <div class="price">$${itemPrice.toFixed(2)}</div>
-      <div class="total">$${itemPrice.toFixed(2)}</div>
-      <div class="addToCart">Added</div>
-      <div class="remove">Remove</div>
-    `;
+    // Create a new row for the cart
+    const newRow = tableBody.insertRow();
+    newRow.className = 'table-row';
 
-    tableBody.appendChild(row);
+    // Add cells to the row
+    const cellNumber = newRow.insertCell(0);
+    const cellName = newRow.insertCell(1);
+    const cellPrice = newRow.insertCell(2);
+    const cellTotal = newRow.insertCell(3);
+    const cellAdded = newRow.insertCell(4);
+    const cellRemove = newRow.insertCell(5);
+
+    // Fill in cell content
+    cellNumber.textContent = itemCount;
+    cellName.textContent = itemName;
+    cellPrice.textContent = `$${itemPrice.toFixed(2)}`;
+    cellTotal.textContent = `$${itemPrice.toFixed(2)}`;
+    cellAdded.textContent = 'Added';
+    // cellRemove.textContent = 'Remove';
+    cellAdded.className = 'addToCart added';
+
+     // Create a Remove button
+    const removeButton = document.createElement('div');
+    removeButton.className = 'remove';
+    removeButton.textContent = 'Remove';
+
+    // Attach click event to Remove button
+    removeButton.addEventListener('click', () => {
+      removeRow(newRow); // Call the function to remove the row
+    });
+
+    // Append the Remove button to the last cell
+    cellRemove.appendChild(removeButton);
+
+    // Increment the item count
+    itemCount++;
 
     // Show the container only when an item is added
     containerMenu.style.display = 'block';
   });
 });
-

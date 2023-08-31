@@ -14,7 +14,9 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -25,10 +27,84 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+6ayZJ8r7B6q6eEc6aDkGS6X4U5j4IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+6ayZJ8r7B6q6eEc6aDkGS6X4U5j4IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    /* Style for the container */
+    .container-menu {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      
+    }
+
+    .head {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .cart-container {
+      overflow-x: auto;
+    }
+
+    .cart {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cart th,
+    .cart td {
+      padding: 10px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart th {
+      background-color: #333;
+      color: white;
+    }
+
+    /* Style for table data cells */
+    .cart td {
+      padding: 10px 15px;
+      color: #000;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Alternate row background color */
+    .cart tbody tr {
+      background-color: #f2f2f2;
+      color: black;
+    }
+
+
+    /* Style for "Add to cart" and "Remove" buttons */
+    .addToCart,
+    .remove {
+      text-align: center;
+    }
+
+    /* Hover effect on buttons */
+    .remove:hover {
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .container-menu{
+        overflow-x: scroll;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -67,23 +143,27 @@
           <!-- <li><a class="nav-link scrollto" href="#specials">Specials</a></li> -->
           <!-- <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li> -->
           <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-          
+
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
       <!-- <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">order Now</a> -->
       <li class="nav-item dropdown mt-0">
-        <a class="avatar-pos nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="../Restaurantly/assets/img/01.png" alt="User-Profile" class="img-fluid avatar avatar-50 avatar-rounded">
+        <a class="avatar-pos nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../Restaurantly/assets/img/01.png" alt="User-Profile"
+            class="img-fluid avatar avatar-50 avatar-rounded">
           <div class="caption ms-3 d-none d-md-block ">
-              <h6 class="mb-0 caption-title">Austin </h6>
+            <h6 class="mb-0 caption-title">Austin </h6>
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><a class="dropdown-item" href="#">Privacy Setting</a></li>
-          <li><hr class="dropdown-divider"></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
           <li><a class="dropdown-item" href="#">Logout</a></li>
         </ul>
       </li>
@@ -107,7 +187,8 @@
             <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Order Now</a>
           </div>
         </div>
-        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in"
+          data-aos-delay="200">
           <a href="https://www.youtube.com/watch?v=u6BOC7CDUTQ" class="glightbox play-btn"></a>
         </div>
 
@@ -188,11 +269,11 @@
 
 
 
-    
+
     <!-- ======= Menu Section ======= -->
-    <section id="menu" class="menu section-bg" >
+    <section id="menu" class="menu section-bg">
       <div class="container" data-aos="fade-up">
-        
+
 
         <div class="section-title">
           <h2>Menu</h2>
@@ -210,12 +291,13 @@
           </div>
         </div>
 
-        <div class="row menu-container" data-aos="fade-up" data-aos-delay="400" >
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="400">
 
           <div class="col-lg-6 menu-item filter-starters">
             <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Lobster Bisque</a><span>$5.95 <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Lobster Bisque</a><span>$5.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
@@ -225,7 +307,8 @@
           <div class="col-lg-6 menu-item filter-specialty" data-aos-delay="300">
             <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Bread Barrel</a><span>$6.95 <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Bread Barrel</a><span>$6.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
@@ -245,7 +328,8 @@
           <div class="col-lg-6 menu-item filter-salads">
             <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Caesar Selections</a><span>$8.95  <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Caesar Selections</a><span>$8.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
@@ -255,7 +339,8 @@
           <div class="col-lg-6 menu-item filter-specialty">
             <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Tuscan Grilled</a><span>$9.95  <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Tuscan Grilled</a><span>$9.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Grilled chicken with provolone, artichoke hearts, and roasted red pesto
@@ -265,7 +350,8 @@
           <div class="col-lg-6 menu-item filter-starters">
             <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;" >Mozzarella Stick</a><span>$4.95  <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Mozzarella Stick</a><span>$4.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
@@ -285,7 +371,8 @@
           <div class="col-lg-6 menu-item filter-salads">
             <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Spinach Salad</a><span>$9.95 <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Spinach Salad</a><span>$9.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
@@ -295,37 +382,39 @@
           <div class="col-lg-6 menu-item filter-specialty">
             <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Lobster Roll</a><span>$12.95 <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Lobster Roll</a><span>$12.95 <i
+                  class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
               Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
             </div>
+            <!-- </div> -->
+
           </div>
 
         </div>
 
-      </div> 
+        <div class="container-menu">
+          <div class="head">Your Orders List</div>
+          <table class="cart">
+            <thead>
+              <tr>
+                <th class="number">S.no</th>
+                <th class="name">Item Name</th>
+                <th class="price">Price</th>
+                <th class="total">Total</th>
+                <th class="addToCart">Add to cart</th>
+                <th class="remove">Remove</th>
 
-      <div class="container-menu">
-        <div class="head">Your Orders List</div>
-        <table class="cart">
-          <thead>
-            <tr>
-              <th class="number">S.no</th>
-              <th class="name">Item Name</th>
-              <th class="price">Price</th>
-              <th class="total">Total</th>
-              <th class="addToCart">Add to cart</th>
-              <th class="remove">Remove</th>
-            </tr>
-          </thead>
-          <tbody class="table-body">
-            
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- <div class="section-title" style="text-align: center;">
+              </tr>
+            </thead>
+            <tbody class="table-body">
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- <div class="section-title" style="text-align: center;">
           <h2 style="margin-bottom: 1rem;">Cafe's</h2>
           <p>Check Our Cafe's</p>
         </div>
@@ -344,7 +433,7 @@
               </div>
           </div>
       </div> -->
-    
+
     </section>
 
 
@@ -427,7 +516,8 @@
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
@@ -442,11 +532,11 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-const cartPlusIcon = document.querySelector(".fa-cart-plus");
+    const cartPlusIcon = document.querySelector(".fa-cart-plus");
 
-cartPlusIcon.addEventListener("click", function() {
-  console.log("button clicked");
-});
+    cartPlusIcon.addEventListener("click", function () {
+      console.log("button clicked");
+    });
 
 
 

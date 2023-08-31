@@ -1132,33 +1132,6 @@ section {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.container-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-.head {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-.cart {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  /* background-color: #f9f9f9; */
-  padding: 10px;
-  width: 80%;
-  border: 1px solid #ccc;
-}
-.cart > div {
-  text-align: center;
-}
-.number, .name, .price, .total, .addToCart, .remove {
-  border-bottom: 1px solid #ddd;
-  padding: 5px 0;
-}
 
 /*--------------------------------------------------------------
 # Specials
