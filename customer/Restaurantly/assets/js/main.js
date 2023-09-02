@@ -346,3 +346,22 @@ menuItems.forEach((item, index) => {
     containerMenu.style.display = 'block';
   });
 });
+
+// Select the "Proceed" button
+const proceedButton = document.querySelector('.btn button');
+
+// Add a click event listener to the "Proceed" button
+proceedButton.addEventListener('click', () => {
+  const tableBody = document.querySelector('.table-body');
+  // Check if the screen width is below 768 pixels (adjust this threshold as needed)
+  if (window.innerWidth <= 768 && tableBody.childElementCount === 0 ) {
+    // Display an alert for mobile view
+    alert('Please add item to the table.');
+  } 
+  else {
+    // Check if the table is empty (similar to previous code)
+    if (tableBody.childElementCount === 0) {
+      alert('Please add items to the table before proceeding.');
+    }
+  }
+});
