@@ -95,21 +95,23 @@
 
     }
 
-    .btn {
+    .button {
       margin-top: 2.3rem;
       display: flex;
       justify-content: center;
       align-items: center;
       border: none;
+      background: none;
     }
     
-    .btn button {
+    .button button {
       padding: .5rem ;
       border-radius: .9rem;
       background-color: transparent;
       color: white;
       box-shadow: 0 15px 10px rgba(186, 18, 18, 0.2);
     }
+    
 
     /* Style for "Add to cart" and "Remove" buttons */
     .addToCart,
@@ -122,6 +124,13 @@
       background-color: #333;
       color: white;
       cursor: pointer;
+    }
+    .btn button a{
+      text-decoration: none;
+      list-style: none;
+      display: inline;
+      /* width: 12rem; */
+
     }
 
     @media (max-width: 768px) {
@@ -230,79 +239,6 @@
   </section><!-- End Hero -->
 
   <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <!-- <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-            <div class="about-img">
-              <img src="assets/img/about.jpg" alt="">
-            </div>
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3> Welcome to Taste Sculptors, where culinary excellence meets warm hospitality.</h3>
-            <p class="fst-italic">
-              Discover a fusion of flavors at [Restaurant Name], where passion for cuisine meets unforgettable experiences.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> At Taste Sculptors, we take pride in our commitment to culinary innovation</li>
-              <li><i class="bi bi-check-circle"></i> Our chefs continually push the boundaries of flavor, combining traditional recipes with modern techniques to craft dishes that are both familiar and refreshingly unique.</li>
-            </ul>
-            <p>
-              Our restaurant is a haven for food enthusiasts seeking a memorable dining experience. With a passion for crafting exceptional flavors, our talented chefs meticulously curate each dish, infusing it with creativity and dedication. Whether you're indulging in our signature  creations or savoring classic favorites with a twist, every plate is a work of art that tantalizes the taste buds.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End About Section -->
-
-    <!-- ======= Why Us Section ======= -->
-    <!-- <section id="why-us" class="why-us">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Why Us</h2>
-          <p>Why Choose Our Restaurant</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-4">
-            <div class="box" data-aos="zoom-in" data-aos-delay="100">
-              <span>01</span>
-              <h4>Lorem Ipsum</h4>
-              <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="box" data-aos="zoom-in" data-aos-delay="200">
-              <span>02</span>
-              <h4>Repellat Nihil</h4>
-              <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire leno para dest</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="box" data-aos="zoom-in" data-aos-delay="300">
-              <span>03</span>
-              <h4> Ad ad velit qui</h4>
-              <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>End Why Us Section -->
-
-
-
-
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu section-bg">
       <div class="container" data-aos="fade-up">
@@ -394,7 +330,7 @@
           <div class="col-lg-6 menu-item filter-salads">
             <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Greek Salad</a><span>$9.95 <i class="fa-solid fa-cart-plus"></i></span>
+              <a href="#" style="color: yellow;">Greek Salad</a><span>$9.95 <button id="cart1" value="Greek Salad" style="border: none; margin: 0; background: #1a1814;"> <i class="fa-solid fa-cart-plus"></i> </button></span>
             </div>
             <div class="menu-ingredients">
               Fresh spinach, crisp romaine, tomatoes, and Greek olives
@@ -415,7 +351,7 @@
           <div class="col-lg-6 menu-item filter-specialty">
             <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
             <div class="menu-content">
-              <a href="#" style="color: yellow;">Lobster Roll</a><span>$12.95 <i
+              <a href="#" style="color: yellow;">  Lobster Roll</a><span>$12.95 <i
                   class="fa-solid fa-cart-plus"></i></span>
             </div>
             <div class="menu-ingredients">
@@ -429,24 +365,24 @@
 
         <div class="container-menu">
           <div class="head">Your Orders List</div>
-          <table class="cart">
+          <table class="cart" >
             <thead>
               <tr>
                 <th class="number">S.no</th>
                 <th class="name">Item Name</th>
                 <th class="price">Price</th>
                 <th class="total">Total</th>
-                <th class="addToCart">Add to cart</th>
+                <th class="addToCart">total items</th>
                 <th class="remove">Remove</th>
 
               </tr>
             </thead>
-            <tbody class="table-body">
+            <tbody class="table-body" id="body-cart">
 
             </tbody>
           </table>
-          <div class="btn">
-            <button>Proceed</button>
+          <div class="button">
+            <button> <a href="cart.html">Proceed</a></button>
           </div>
         </div>
 
@@ -566,17 +502,64 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-  <script>
-    const cartPlusIcon = document.querySelector(".fa-cart-plus");
+  <!-- Add this script tag before your closing </body> tag to include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  var cart = [];
 
-    cartPlusIcon.addEventListener("click", function () {
-      console.log("button clicked");
-    });
+  $('#cart1').click(function () {
+    var itemName = "Greek Salad"; // Replace with the actual item name
+    var itemPrice = 9.95; // Replace with the actual item price
 
+    // Check if the item is already in the cart
+    var existingItem = cart.find(item => item.name === itemName);
 
+    if (existingItem) {
+      // If the item is already in the cart, increase the quantity and update the total price
+      existingItem.quantity++;
+      existingItem.totalPrice += itemPrice;
+    } else {
+      // If the item is not in the cart, add it to the cart array
+      cart.push({
+        name: itemName,
+        price: itemPrice,
+        quantity: 1,
+        totalPrice: itemPrice,
+      });
 
-  </script>
+      // Create a new row for the cart table
+      var newRow = '<tr>';
+      newRow += '<td>x</td>';
+      newRow += '<td>' + itemName + '</td>';
+      newRow += '<td>$' + itemPrice.toFixed(2) + '</td>';
+      newRow += '<td>$' + itemPrice.toFixed(2) + '</td>';
+      newRow += '<td class="addToCart">1</td>';
+      newRow += '<td><button class="removeItem">Remove</button></td>';
+      newRow += '</tr>';
+      
+      $('#body-cart').append(newRow);
+    }
+  });
+
+  // Add an event listener for removing items from the cart
+  $('#body-cart').on('click', '.removeItem', function () {
+    var row = $(this).closest('tr');
+    var itemName = row.find('td:eq(1)').text();
+
+    // Find the index of the item in the cart array
+    var itemIndex = cart.findIndex(item => item.name === itemName);
+
+    if (itemIndex !== -1) {
+      // Remove the item from the cart array and the table row
+      cart.splice(itemIndex, 1);
+      row.remove();
+    }
+  });
+</script>
+
 
 </body>
 

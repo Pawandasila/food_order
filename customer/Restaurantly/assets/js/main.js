@@ -279,7 +279,7 @@
 })()
 
 
-
+/*
 // Select all menu items
 const menuItems = document.querySelectorAll('.menu-item');
 
@@ -365,3 +365,4 @@ proceedButton.addEventListener('click', () => {
     }
   }
 });
+*/
