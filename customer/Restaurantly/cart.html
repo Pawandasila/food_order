@@ -123,6 +123,14 @@
       text-align: right;
     }
 
+    /* .total{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+    } */
+
     @media screen and (max-width: 768px) {
       .small-container-cart-page {
         width: 90%;
@@ -274,15 +282,16 @@
         </tr>
       </table>
 
-      <div class="total-price">
+      <div class="total-price" >
         <table>
-
           <tr>
             <td>Total</td>
             <td id="total">&#8377; 3,747.00</td>
           </tr>
         </table>
       </div>
+
+
     </div>
   </main>
 
@@ -383,8 +392,6 @@
     var quantityInput = document.querySelector('#quantity input');
     var price = document.querySelector('.price').value;
     console.log(price);
-
-    
     var increaseButton = document.querySelector('#inc');
     var decreaseButton = document.querySelector('#dec');
 
