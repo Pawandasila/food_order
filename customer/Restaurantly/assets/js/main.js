@@ -278,91 +278,43 @@
 
 })()
 
+/*=============== SHOW MENU ===============*/
+const navMenu = document.getElementById('nav-menu'),
+      navToggle = document.getElementById('nav-toggle'),
+      navClose = document.getElementById('nav-close')
 
-/*
-// Select all menu items
-const menuItems = document.querySelectorAll('.menu-item');
-
-// Select necessary elements
-const containerMenu = document.querySelector('.container-menu');
-const cart = containerMenu.querySelector('.cart');
-const tableBody = cart.querySelector('.table-body');
-
-// Counter for item numbers
-let itemCount = 1;
-
-// function to remove rows 
-function removeRow(row) {
-  tableBody.removeChild(row);
-  itemCount--; // Decrement the item count
+/*===== MENU SHOW =====*/
+/* Validate if constant exists */
+if(navToggle){
+    navToggle.addEventListener('click', () =>{
+        navMenu.classList.add('show-menu')
+    })
 }
 
-// Iterate through each menu item
-menuItems.forEach((item, index) => {
-  const addToCartIcon = item.querySelector('.fa-cart-plus');
-  addToCartIcon.addEventListener('click', () => {
-    // Get item details
-    const itemName = item.querySelector('.menu-content a').textContent;
-    const itemPrice = parseFloat(item.querySelector('.menu-content span').textContent.slice(1));
+/*===== MENU HIDDEN =====*/
+/* Validate if constant exists */
+if(navClose){
+    navClose.addEventListener('click', () =>{
+        navMenu.classList.remove('show-menu')
+    })
+}
 
-    // Create a new row for the cart
-    const newRow = tableBody.insertRow();
-    newRow.className = 'table-row';
+/*=============== REMOVE MENU MOBILE ===============*/
+const navLink = document.querySelectorAll('.nav__link')
 
-    // Add cells to the row
-    const cellNumber = newRow.insertCell(0);
-    const cellName = newRow.insertCell(1);
-    const cellPrice = newRow.insertCell(2);
-    const cellTotal = newRow.insertCell(3);
-    const cellAdded = newRow.insertCell(4);
-    const cellRemove = newRow.insertCell(5);
+function linkAction(){
+    const navMenu = document.getElementById('nav-menu')
+    // When we click on each nav__link, we remove the show-menu class
+    navMenu.classList.remove('show-menu')
+}
+navLink.forEach(n => n.addEventListener('click', linkAction))
 
-    // Fill in cell content
-    cellNumber.textContent = itemCount;
-    cellName.textContent = itemName;
-    cellPrice.textContent = `$${itemPrice.toFixed(2)}`;
-    cellTotal.textContent = `$${itemPrice.toFixed(2)}`;
-    cellAdded.textContent = 'Added';
-    // cellRemove.textContent = 'Remove';
-    cellAdded.className = 'addToCart added';
+/*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+    distance: '90px',
+    duration: 3000,
+})
 
-     // Create a Remove button
-    const removeButton = document.createElement('div');
-    removeButton.className = 'remove';
-    removeButton.textContent = 'Remove';
-
-    // Attach click event to Remove button
-    removeButton.addEventListener('click', () => {
-      removeRow(newRow); // Call the function to remove the row
-    });
-
-    // Append the Remove button to the last cell
-    cellRemove.appendChild(removeButton);
-
-    // Increment the item count
-    itemCount++;
-
-    // Show the container only when an item is added
-    containerMenu.style.display = 'block';
-  });
-});
-
-// Select the "Proceed" button
-const proceedButton = document.querySelector('.btn button');
-
-// Add a click event listener to the "Proceed" button
-proceedButton.addEventListener('click', () => {
-  const tableBody = document.querySelector('.table-body');
-  // Check if the screen width is below 768 pixels (adjust this threshold as needed)
-  if (window.innerWidth <= 768 && tableBody.childElementCount === 0 ) {
-    // Display an alert for mobile view
-    alert('Please add item to the table.');
-  } 
-  else {
-    // Check if the table is empty (similar to previous code)
-    if (tableBody.childElementCount === 0) {
-      alert('Please add items to the table before proceeding.');
-    }
-  }
-});
-*/
+sr.reveal(`.home__data`, {origin: 'top', delay: 400})
+sr.reveal(`.home__img`, {origin: 'bottom', delay: 600})
+sr.reveal(`.home__footer`, {origin: 'bottom', delay: 800})
