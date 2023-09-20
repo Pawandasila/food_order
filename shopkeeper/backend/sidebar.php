@@ -79,13 +79,13 @@
                 </ul>
               </div>
             </li> -->
-            <li class="nav-item sidebar-actions">
+            <!-- <li class="nav-item sidebar-actions">
               <span class="nav-link">
                 <div class="border-bottom">
                   <h6 class="font-weight-normal mb-3">Projects</h6>
                 </div>
                 <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
-                <!-- <div class="mt-4">
+                 <div class="mt-4">
                   <div class="border-bottom">
                     <p class="text-secondary">Categories</p>
                   </div>
@@ -93,8 +93,8 @@
                     <li>Free</li>
                     <li>Pro</li>
                   </ul>
-                </div> -->
+                </div> 
               </span>
-            </li>
+            </li> -->
           </ul>
         </nav>
