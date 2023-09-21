@@ -42,6 +42,38 @@
 </head>
 
 <body class="bg">
+<?php
+    // Database connection
+    $server = "localhost";
+    $usernames = "root";
+    $password = "";
+    $con = mysqli_connect($server, $usernames, $password, "food_order");
+    
+    // if ($con) {
+    //     echo '<script> alert("Database connection successful");</script>';
+    // } else {
+    //     echo '<script> alert("Database connection failed");</script>';
+    // }
+
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $username = $_POST['username']; 
+    $password = $_POST['password'];
+    $dob = $_POST['birthdayDate'];
+    $gender = isset($_POST['inlineRadioOptions']) ? $_POST['inlineRadioOptions'] : ''; // Corrected gender
+    $email = $_POST['email'];
+    $phone = $_POST['phoneNumber'];
+
+
+
+    $sql = "INSERT INTO user_profile (first_name, last_name, username, password_hash, email, gender, phone_number)
+            VALUES ($firstName, $lastName, $username, $password, $email, $gender, $phone)"; 
+
+    mysqli_query($con, $sql);
+    
+    ?>
+
+
     <section class="vh-100  sections">
         <div class="container py-3 h-80">
             <div class="row justify-content-center align-items-center h-80">
@@ -49,22 +81,22 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 44px;">
                         <div class="card-body p-5 p-md-4">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center font-awesome">Sign Up</h3>
-                            <form>
+                            <form method ="post">
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="firstName">First Name</label>
-                                            <input type="text" id="firstName" class="form-control form-control-lg" />
+                                            <label class="form-label form-control-lg"for="firstName">First Name</label>
+                                            <input type="text" id="firstName"  name="firstName"  class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="lastName">Last Name</label>
-                                            <input type="text" id="lastName" class="form-control form-control-lg" />
+                                            <label class="form-label form-control-lg"  for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" name = "lastName" class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
@@ -73,8 +105,8 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="Username">Username</label>
-                                            <input type="text" id="Username" class="form-control form-control-lg" />
+                                            <label class="form-label form-control-lg" value="username" for="Username">Username</label>
+                                            <input type="text" id="Username"  value="username" class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
@@ -82,7 +114,7 @@
 
                                         <div class="form-outline">
                                             <label class="form-label form-control-lg" for="password">password</label>
-                                            <input type="password" id="password" class="form-control form-control-lg" />
+                                            <input type="password" id="password" name= "password" class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
@@ -101,7 +133,7 @@
 
                                         <div class="form-outline datepicker w-100">
                                             <label for="birthdayDate form-control-lg " class="form-label">Birthday</label>
-                                            <input type="date" class="form-control form-control-lg" id="birthdayDate" />
+                                            <input type="date" name="birthdayDate"  class="form-control form-control-lg" id="birthdayDate" />
                                         </div>
 
                                     </div>
@@ -111,7 +143,7 @@
 
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label " for="maleGender">Male</label>
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                            <input class="form-check-input"  type="radio" name="inlineRadioOptions"
                                                 id="maleGender" value="option2" />
                                         </div>
 
@@ -135,7 +167,7 @@
 
                                         <div class="form-outline">
                                             <label class="form-label form-control-lg" for="emailAddress">Email</label>
-                                            <input type="email" id="emailAddress"
+                                            <input type="email" id="emailAddress" name="email"
                                                 class="form-control form-control-lg" />
                                         </div>
 
@@ -144,7 +176,7 @@
 
                                         <div class="form-outline">
                                             <label class="form-label form-control-lg" for="phoneNumber">Phone Number</label>
-                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
+                                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
@@ -165,7 +197,7 @@
                                 </div> -->
 
                                 <div class="mt-4 pt-2" >
-                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button"
+                                    <button name="signup" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button"
                                         style="width: 150px; height: 50px; border-radius: 1.3rem; font-size: 1.3rem; text-align: center; box-shadow: 1px -2px 20px 6px rgb(33 255 247 / 50%)">Log
                                         in</button>
                                 </div>
