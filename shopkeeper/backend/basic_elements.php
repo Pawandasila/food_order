@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <!-- End layout styles -->
   <link rel="shortcut icon" href="assets/images/favicon.ico" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     .card {
       margin: 0;
@@ -97,73 +98,74 @@
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                        <td><label class="badge badge-danger">Pending</label></td>
-                        <td>Jacob</td>
-                        <td>Photoshop</td>
-                        <td>Photoshop</td>
-                        <td>Photoshop</td>
+                        <td data-category="Category 1">Category 1</td>
+                        <td data-item="Item 1">Item 1</td>
+                        <td data-price="10.00">10.00</td>
+                        <td data-offers="Offer 1">Offer 1</td>
+                        <td data-description="Description 1">Description 1</td>
+                        <td data-time="10 minutes">10 minutes</td>
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editCourseModal">
+                          <a href="#" data-toggle="modal" data-target="#editCourseModal" class="edit-button">
                             <i class="fas fa-pencil-alt edit-icon"></i>
                           </a>
                         </td>
                       </tr>
+
                       <tr>
                         <td>2</td>
-                        <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i></td>
-                        <td><label class="badge badge-warning">In progress</label></td>
+                        <td> category </td>
+                        <td data-item="Item 1">Item 1</td>
                         <td>Messsy</td>
                         <td>Flash</td>
                         <td>Flash</td>
                         <td>Flash</td>
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editCourseModal">
+                          <a href="#" data-toggle="modal" data-target="#editCourseModal" class="edit-button">
                             <i class="fas fa-pencil-alt edit-icon"></i>
                           </a>
                         </td>
                       </tr>
                       <tr>
                         <td>3</td>
-                        <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i></td>
-                        <td><label class="badge badge-info">Fixed</label></td>
+                        <td> category </td>
+                        <td data-item="Item 1">Item 1</td>
                         <td>John</td>
                         <td>Premier</td>
                         <td>Premier</td>
                         <td>Premier</td>
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editCourseModal">
+                          <a href="#" data-toggle="modal" data-target="#editCourseModal" class="edit-button">
                             <i class="fas fa-pencil-alt edit-icon"></i>
                           </a>
                         </td>
                       </tr>
                       <tr>
                         <td>4</td>
-                        <td class="text-success"> 82.00% <i class="mdi mdi-arrow-up"></i></td>
-                        <td><label class="badge badge-success">Completed</label></td>
+                        <td> category </td>
+                        <td data-item="Item 1">Item 1</td>
                         <td>Peter</td>
                         <td>After effects</td>
                         <td>After effects</td>
                         <td>After effects</td>
                         <td>
-                          <a href="#" data-toggle="modal" data-target="#editCourseModal">
+                          <a href="#" data-toggle="modal" data-target="#editCourseModal" class="edit-button">
                             <i class="fas fa-pencil-alt edit-icon"></i>
                           </a>
                         </td>
                       </tr>
                       <tr>
                         <td>5</td>
-                        <td class="text-success"> 98.05% <i class="mdi mdi-arrow-up"></i></td>
-                        <td><label class="badge badge-warning">In progress</label></td>
+                        <td> category </td>
+                        <td data-item="Item 1">Item 1</td>
                         <td>Dave</td>
                         <td>53275535</td>
                         <td>53275535</td>
                         <td>53275535</td>
-                        <<td>
-                          <a href="#" data-toggle="modal" data-target="#editCourseModal">
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#editCourseModal" class="edit-button">
                             <i class="fas fa-pencil-alt edit-icon"></i>
                           </a>
-                          </td>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -174,6 +176,7 @@
         </div>
 
         <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel"
+          aria-hidden="true">
           aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -269,6 +272,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
@@ -278,11 +282,13 @@
   <script src="../../assets/js/misc.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
+
   <!-- Include Popper.js (required for Bootstrap dropdowns) -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 
   <!-- Include Bootstrap JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
   <!-- Include your custom scripts after including jQuery, Popper.js, and Bootstrap JS -->
   <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
@@ -365,8 +371,42 @@
       });
     });
   </script>
+  <script>
+    $(document).ready(function () {
+      // Function to open the modal and populate fields when "Edit" is clicked
+      $(".edit-button").click(function () {
+        var row = $(this).closest("tr");
+        var category = row.find("td[data-category]").data("category");
+        var item = row.find("td[data-item]").data("item");
+        var price = row.find("td[data-price]").data("price");
+        var offers = row.find("td[data-offers]").data("offers");
+        var description = row.find("td[data-description]").data("description");
+        var time = row.find("td[data-time]").data("time");
 
+        // Populate modal fields
+        $("#editCategory").val(category);
+        $("#editItem").val(item);
+        $("#editPrice").val(price);
+        $("#editOffers").val(offers);
+        $("#editDescription").val(description);
+        $("#editTime").val(time);
+      });
 
+      // Function to update the specific field when "Save Changes" is clicked
+      $("#editCourseModal form").submit(function (e) {
+        e.preventDefault();
+
+        // Retrieve edited value for the specific field
+        var editedCategory = $("#editCategory").val();
+
+        // Update the specific field in the table
+        $(".edit-button").closest("tr").find("td[data-category]").text(editedCategory);
+
+        // Close the modal
+        $("#editCourseModal").modal('hide');
+      });
+    });
+  </script
 
 
   <!-- End custom js for this page -->

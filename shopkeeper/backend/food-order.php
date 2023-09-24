@@ -354,13 +354,11 @@
                                         <thead>
                                             <tr>
                                                 <th> User </th>
-                                                <th> First <span class="sort-icon">&#9660;</span> </th>
-                                                <th> Progress </th>
-                                                <th> Customer Id </th>
+                                                <th> OrderDetailId <span class="sort-icon">&#9660;</span> </th>
+                                                <th> OrdersId </th>
+                                                <th> Food Id </th>
+                                                <th> Quatity </th>
                                                 <th> Amount </th>
-                                                <th> Status </th>
-                                                <th> Otp </th>
-                                                <th> Customer Notes </th>
                                                 <th> Actions </th>
                                             </tr>
                                         </thead>
@@ -370,20 +368,12 @@
                                                     <img src="assets/images/faces-clipart/pic-1.png" alt="image" />
                                                 </td>
                                                 <td> Herman Beck </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
                                                 <td> $ 77.99 </td>
                                                 <td> $ 77.99 </td>
-                                                <td><label class="badge badge-info">Fixed</label></td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
 
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-                                                <td>Lorem, ipsum.</td>
+
                                                 <td><i class="fas fa-check"
                                                         style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
                                                         class="fas fa-times"
@@ -394,20 +384,10 @@
                                                     <img src="assets/images/faces-clipart/pic-2.png" alt="image" />
                                                 </td>
                                                 <td> Messsy Adam </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar"
-                                                            style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td> $245.30 </td>
-                                                <td> $245.30 </td>
-                                                <td><label class="badge badge-success">Done</label></td>
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
                                                 <td><i class="fas fa-check"
                                                         style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
                                                         class="fas fa-times"
@@ -417,22 +397,11 @@
                                                 <td class="py-1">
                                                     <img src="assets/images/faces-clipart/pic-3.png" alt="image" />
                                                 </td>
-                                                <td> John Richards </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td> $138.00 </td>
-                                                <td> $138.00 </td>
-                                                <td><label class="badge badge-danger">Pending</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
                                                 <td><i class="fas fa-check"
                                                         style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
                                                         class="fas fa-times"
@@ -442,22 +411,12 @@
                                                 <td class="py-1">
                                                     <img src="assets/images/faces-clipart/pic-4.png" alt="image" />
                                                 </td>
-                                                <td> Peter Meggik </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
                                                 <td> $ 77.99 </td>
                                                 <td> $ 77.99 </td>
-                                                <td><label class="badge badge-danger">Pending</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                <td> $ 77.99 </td>
+                                                
                                                 <td><i class="fas fa-check"
                                                         style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
                                                         class="fas fa-times"
