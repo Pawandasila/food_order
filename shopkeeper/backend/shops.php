@@ -170,6 +170,7 @@
                                                 $result=mysqli_query($con,"SELECT * FROM shops"); 
                                                 
                                                 while($row=mysqli_fetch_array($result)){
+                                                    $shopids= $row['ShopId'];
                                                     ?>
                                         <tr>
                                             <td>
@@ -336,11 +337,15 @@
                 newItem = $('#newItem').val();
                 username = $('#username').val();
                 contactNo = $('#contactNo').val();
-                td = "<tr><td>" + category + "</td></tr>"
-                td += "<tr><td>" + shopkeeperName + "</td></tr>"
-                td += "<tr><td>" + newItem + "</td></tr>"
-                td += "<tr><td>" + username + "</td></tr>"
-                td += "<tr><td>" + contactNo + "</td></tr>";
+
+                var shopid = <?php  echo $shopid; ?>;
+                
+                td = "<tr><td>" + shopid + "</td>"
+                td += "<td>" + category + "</td>"
+                td += "<td>" + shopkeeperName + "</td>"
+                td += "<td>" + newItem + "</td>"
+                td += "<td>" + username + "</td>"
+                td += "<td>" + contactNo + "</td></tr>";
                 $('#data').append(td);
                 // alert("hello world");
                 $.ajax({

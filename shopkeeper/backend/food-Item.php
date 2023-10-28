@@ -83,7 +83,7 @@
             </nav>
           </div>
 
-          <div class="col-lg-6 grid-margin stretch-card table-responsive" style="width:50vw">
+          <div class="col-lg-6 grid-margin stretch-card table-responsive" style="width:79vw">
             <div class="card ">
               <div class="card-body">
                 <h4 class="card-title">Food Category </h4>
@@ -91,35 +91,72 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>sr.no</th>
-                        <th>Category</th>
-                       
+                        <th>FoodId</th>
+                        <th>FoodName</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>FoodCategoryId</th>
+                        <th>ShopsId</th> 
+                        <th>Offers</th>  
+                        <th>Available Time</th>
+                        <th>Time Taken</th>
                       </tr>
                     </thead>
                     <tbody id='category'>
 
                       <?php
-                          $result=mysqli_query($con,"SELECT * FROM foodcategory"); 
+                          $result=mysqli_query($con,"SELECT * FROM fooditem"); 
                           while($row=mysqli_fetch_array($result)){
-                            $foodId = $row['foodId'];
-                            $foodCatergoryName = $row['foodCatergoryName'];
+                            $foodId = $row['FoodId'];
+                            $FoodName = $row['FoodName'];
+                            $price = $row['price']; 
+                            $description = $row['description'];   
+                            $foodcategoryId = $row['foodcategoryId'];   
+                            $shopsId = $row['shopsId'];   
+                            $offers = $row['offers'];   
+                            $available = $row['available'];   
+                            $TimeTaken = $row['TimeTaken'];   
                           ?>
                       <tr>
                         <td>
-                           <?php echo $row['foodId'] ?>
+                           <?php echo $row['FoodId'] ?>
                         </td>
                         <td>
-                          <?php echo $row['foodCatergoryName'] ?>
+                          <?php echo $row['FoodName'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['price'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['description'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['foodcategoryId'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['shopsId'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['offers'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['available'] ?>
+                        </td>
+                        <td>
+                          <?php echo $row['TimeTaken'] ?>
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button onclick="editThis('<?php echo $foodId ?>', '<?php echo $foodCatergoryName ?>')" class="btn btn-danger edit-link" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-edit"></i> Edit</button>
+                            <button onclick="editThis('<?php echo $FoodId ?>', '<?php echo $FoodName ?>', '<?php echo $price ?>', '<?php echo $description ?>', '<?php echo $foodcategoryId ?>', '<?php echo $shopsId ?>', '<?php echo $offers ?>', '<?php echo $available ?>', '<?php echo $TimeTaken ?>')" class="btn btn-danger edit-link" data-foodid="<?php echo $FoodId; ?>">
+                            <i class="fas fa-edit"></i> Edit
+                            </button>
+
                             </div>
                         </td>
 
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-trash-alt"></i> Delete</button>
+                                <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['FoodId']; ?>"><i class="fas fa-trash-alt"></i> Delete</button>
                             </div>
                         </td>
                           
@@ -155,9 +192,41 @@
                     <input type="hidden" class="form-control" id="foodId" name="foodid" required>
                   </div>
                   <div class="form-group">
-                    <label for="editCategory">Category</label>
-                    <input type="text" class="form-control" id="editCategory" name="editCategory" required>
-                  </div>
+                  <label for="FoodName">Food Name</label>
+                  <input type="text" class="form-control" id="FoodName" name="FoodName" required>
+                </div>
+                <div class="form-group">
+                  <!-- <label for="foodId">Food ID</label> -->
+                  <input type="text" class="form-control" id="foodId" name="foodId" readonly hidden>
+                </div>
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="text" class="form-control" id="price" name="price">
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" name="description">
+                </div>
+                <div class="form-group">
+                  <label for="foodcategoryId">Food Category ID</label>
+                  <input type="text" class="form-control" id="foodcategoryId" name="foodcategoryId">
+                </div>
+                <div class="form-group">
+                  <label for="shopsId">Shops ID</label>
+                  <input type="text" class="form-control" id="shopsId" name="shopsId">
+                </div>
+                <div class="form-group">
+                  <label for="offers">Offers</label>
+                  <input type="text" class="form-control" id="offers" name="offers">
+                </div>
+                <div class="form-group">
+                  <label for="available">Available</label>
+                  <input type="text" class="form-control" id="available" name="available">
+                </div>
+                <div class="form-group">
+                  <label for="TimeTaken">Time Taken</label>
+                  <input type="text" class="form-control" id="TimeTaken" name="TimeTaken">
+                </div>
                   <!-- <div class="form-group">
                     <label for="editItem">Item</label>
                     <input type="text" class="form-control" id="editItem" name="editItem" required>
@@ -187,10 +256,42 @@
               <form id="addRowForm" method="post">
                 <div class="modal-body">
                   <!-- Add input fields for adding new row here -->
-                  <div class="form-group">
-                    <label for="newCategory">Category</label>
-                    <input type="text" class="form-control" id="newCategory" name="newCategory" required>
-                  </div>
+                <div class="form-group">
+                  <label for="FoodName">Food Name</label>
+                  <input type="text" class="form-control" id="FoodName" name="FoodName" required>
+                </div>
+                <div class="form-group">
+                  <!-- <label for="foodId">Food ID</label> -->
+                  <input type="text" class="form-control" id="foodId" hidden name="foodId" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" class="form-control" id="price" name="price">
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" id="description" name="description">
+                </div>
+                <div class="form-group">
+                  <label for="foodcategoryId">Food Category ID</label>
+                  <input type="text" class="form-control" id="foodcategoryId" name="foodcategoryId">
+                </div>
+                <div class="form-group">
+                  <label for="shopsId">Shops ID</label>
+                  <input type="number" class="form-control" id="shopsId" name="shopsId">
+                </div>
+                <div class="form-group">
+                  <label for="offers">Offers</label>
+                  <input type="number" class="form-control" id="offers" name="offers">
+                </div>
+                <div class="form-group">
+                  <label for="available">Available</label>
+                  <input type="number" class="form-control" id="available" name="available">
+                </div>
+                <div class="form-group">
+                  <label for="TimeTaken">Time Taken</label>
+                  <input type="number" class="form-control" id="TimeTaken" name="TimeTaken">
+                </div>
                   <!-- <div class="form-group">
                     <label for="newItem">Item</label>
                     <input type="text" class="form-control" id="newItem" name="newItem" required>
@@ -246,18 +347,9 @@
   <!-- plugins:js -->
   <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
   <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="../../assets/js/off-canvas.js"></script>
-  <script src="../../assets/js/hoverable-collapse.js"></script>
-  <script src="../../assets/js/misc.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+  
+  
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -289,47 +381,70 @@
 
   <!-- js for edit form -->
   <script>
+  function editThis(x, y, a, b, c, d, e, f, g) {
+    $('#FoodName').val(y);
+    $('#foodId').val(x);
+    $('#price').val(a);
+    $('#description').val(b);
+    $('#foodcategoryId').val(c);
+    $('#shopsId').val(d);
+    $('#offers').val(e);
+    $('#available').val(f);
+    $('#TimeTaken').val(g);
+  }
 
-    function editThis(x,y){
-      $('#editCategory').val(y);
-      $('#foodId').val(x);
+  $(document).ready(function () {
+    $(".edit-link").click(function (e) {
+      $("#editCourseModal").modal("show");
+    });
+  });
 
-      
-    }
-    $(document).ready(function () {
-      
-      $(".edit-link").click(function (e) {
-        // e.preventDefault(); 
+  function saveChanges() {
+    var foodId = $('#foodId').val();
+    var FoodName = $('#FoodName').val();
+    var price = $('#price').val();
+    var description = $('#description').val();
+    var foodcategoryId = $('#foodcategoryId').val();
+    var shopsId = $('#shopsId').val();
+    var offers = $('#offers').val();
+    var available = $('#available').val();
+    var TimeTaken = $('#TimeTaken').val();
 
-        $("#editCourseModal").modal("show");
-      });
+    $.ajax({
+      url: 'action.php',
+      type: 'POST',
+      data: {
+        action: 'editCategory',
+        FoodName: FoodName,
+        foodId: foodId,
+        price: price,
+        description: description,
+        foodcategoryId: foodcategoryId,
+        shopsId: shopsId,
+        offers: offers,
+        available: available,
+        TimeTaken: TimeTaken
+      },
+      success: function (data) {
+        var td = "<tr><td>" + foodId + "</td>";
+        td += "<td>" + FoodName + "</td>";
+        td += "<td>" + price + "</td>";
+        td += "<td>" + description + "</td>";
+        td += "<td>" + foodcategoryId + "</td>";
+        td += "<td>" + shopsId + "</td>";
+        td += "<td>" + offers + "</td>";
+        td += "<td>" + available + "</td>";
+        td += "<td>" + TimeTaken + "</td></tr>";
+        $('#editCategory').html(td); // Use html() to replace the content
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('AJAX request failed:', textStatus, errorThrown);
+      }
     });
 
-    function saveChanges() {
-      var foodId = $('#foodId').val();
-      var editCategory = $('#editCategory').val();
-      // alert(foodId);
-      // alert(editCategory);
-
-      $.ajax({
-                url: 'action.php',
-                type: 'POST',
-                data: 'action=editCategory&category=' + editCategory + '&foodId=' + foodId,
-                success: function (data) {
-                  var td = "<tr><td>" + editCategory + "</td></tr>";
-                  $('#editCategory').update(td);
-                  // alert("helo");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                  alert('AJAX request failed:', textStatus, errorThrown);
-                }
-        });
-
-
-
-      $("#editCourseModal").modal("hide");
-    }
-  </script>
+    $("#editCourseModal").modal("hide");
+  }
+</script>
 
   <!-- js for delete form -->
   <script>
@@ -337,21 +452,20 @@
         $('.delete-button').click(function () {
             var foodId = $(this).data('foodid');
             $('#deleteConfirmationModal').data('foodid', foodId);
-            
             $('#deleteConfirmationModal').modal('show');
           });
           
           $('#confirmDeleteButton').click(function () {
-            // Get the foodId from the data-foodid attribute of the modal
             var foodId = $('#deleteConfirmationModal').data('foodid');
-            
             $.ajax({
                 url: 'action.php',
                 type: 'POST',
-                data: 'action=deleteData&foodId=' + foodId,
+                data: 'action=deleteData&FoodId=' + FoodId,
                 success: function (data) {
                     // alert("hello ");
                     location.reload();
+                    
+                    // Hide the modal after adding a new row
                     hideAddRowModal();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -370,23 +484,39 @@
         function hideAddRowModal() {
             $("#addRowModal").modal("hide");
         }
-
-        // $("#addRowButton").click(function () {
-        //   hideAddRowModal();
-        // });
+        
 
         $('#addRowForm').on('submit', function (e) {
             // e.preventDefault();
-            var category = $('#newCategory').val();
+            var foodId = $('#foodId').val();
+            var FoodName = $('#FoodName').val();
+            var price = $('#price').val();
+            var description = $('#description').val();
+            var foodcategoryId = $('#foodcategoryId').val();
+            var shopsId = $('#shopsId').val();
+            var offers = $('#offers').val();
+            var available = $('#available').val();
+            var TimeTaken = $('#TimeTaken').val();
 
             $.ajax({
                 url: 'action.php',
                 type: 'POST',
-                data: 'action=shopInsertCategory&category=' + category,
-                success: function (data) {
-                    var td = "<tr><td>" + category + "</td></tr>"
-                    $('#category').append(td);
-                    $('#newCategory').val('');
+                data: 'action=shopInsertCategory&foodId=' + foodId + '&price=' + price + '&description=' + description + '&shopsId=' + shopsId + '&offers=' + offers,+ '&available=' + available + '&TimeTaken=' + TimeTaken,
+                
+                success: function (data)  {
+                  var td = "<tr><td>" + FoodId + "</td>";
+                  td += "<td>" + FoodName + "</td>";
+                  td += "<td>" + price + "</td>";
+                  td += "<td>" + description + "</td>";
+                  td += "<td>" + foodcategoryId + "</td>";
+                  td += "<td>" + shopsId + "</td>";
+                  td += "<td>" + offers + "</td>";
+                  td += "<td>" + available + "</td>";
+                  td += "<td>" + TimeTaken + "</td></tr>";
+                    
+                  $('#category').append(td);
+                  // $('#newCategory').val('');
+                  alert("hello")
                     
                     // Hide the modal after adding a new row
                     hideAddRowModal();
