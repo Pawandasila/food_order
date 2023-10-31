@@ -1,3 +1,40 @@
+
+<?php
+// Start the session at the beginning of the file
+session_start();
+
+$server = "localhost";
+$username = "root";
+$password = "";
+$con = mysqli_connect($server, $username, $password, "food_order");
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $sql = "SELECT * FROM user_profile WHERE username = '" . $username . "'";
+  $result = mysqli_query($con, $sql);
+  
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $hashedPasswordFromDatabase = $row['password_hash'];
+
+            if (password_verify($password, $hashedPasswordFromDatabase)) {
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit();
+            } else {
+                echo '<script>alert("Invalid username or password")</script>';
+            }
+        } else {
+            echo '<script>alert("Invalid username or password")</script>';
+        }
+    } else {
+        echo '<script>alert("Error: ' . mysqli_error($con) . '")</script>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +44,7 @@
   <title>Sign In to Your Account - Taste Sculptors</title>
   <link rel="stylesheet" href="./assets/css/login.css" />
 
-  <!-- Add CSS links for libraries -->
+
   <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -15,35 +52,15 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha384-KyZXEAg3QhqLMpG8r+6ayZJ8r7B6q6eEc6aDkGS6X4U5j4IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+
 </head>
 
-<body>
-  <?php
-    // Database connection
-    $server = "localhost";
-    $username = "root";
-    $password = "";
-    $con = mysqli_connect($server, $username, $password, "food_order");
 
-    // Check if the form is submitted
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['loginButton'])) {
-        // echo '<script>alert("hello");</script>';
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        $sql = "INSERT INTO `user_credentials`( `username`, `password_hash`) VALUES ('$username','$password')";
-
-        mysqli_query($con, $sql);
-    }
-}
-
-  ?>
-
-  <section class="h-100 gradient-form" style="background-color: #eee;">
+<body>  
+<section class="h-100 gradient-form" style="background-color: #eee;">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
@@ -61,7 +78,7 @@
                   <form method="post" class="login-form">
                     <div class="form-outline mb-4">
                       <label class="form-label" for="form2Example11">Username</label>
-                      <input type="email" id="form2Example11" class="form-control" name="username"
+                      <input type="text" id="form2Example11" class="form-control" name="username"
                         placeholder="Phone number or email address" />
                     </div>
 
@@ -80,7 +97,7 @@
 
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">Don't have an account?</p>
-                      <a href="sign-up.html"><button type="button" class="btn btn-outline-danger">Create new</button></a>
+                      <a href="sign-up.php"><button type="button" class="btn btn-outline-danger">Create new</button></a>
                     </div>
                   </form>
                 </div>

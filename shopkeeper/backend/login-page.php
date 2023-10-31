@@ -1,6 +1,58 @@
 <?php
-session_start();
+session_start(); // Start the session
+
+$server = "localhost";
+$username = "root";
+$password = "";
+$con = mysqli_connect($server, $username, $password, "food_order");
+// echo " <script> alert('hello')</script>";
+
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT * FROM shops WHERE UserName = ?";
+    
+    $stmt = mysqli_prepare($con, $sql);
+
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    
+    mysqli_stmt_execute($stmt);
+    
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $hashedPasswordFromDatabase = $row['Passwords'];
+
+            // Use password_verify to check if the provided password matches the hashed password
+            if (password_verify($password, $hashedPasswordFromDatabase)) {
+                $_SESSION['username'] = $username;
+                // echo " <script> alert('hello')</script>";
+                // echo "<script> alert('".$row['ShopID']."')</script>";
+                $_SESSION['shopsId'] = $row["ShopID"];
+                // header("Location: index.php"); 
+                echo "<script> window.location.href = 'index.php';</script>";
+            } else {
+                echo '<script>alert("Invalid username or password")</script>';
+            }
+        } else {
+            echo '<script>alert("Invalid username or password")</script>';
+        }
+    } else {
+        echo '<script>alert("Error in query")</script>';
+    }
+} else {
+    // Handle the case where username or password is not set
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,45 +140,7 @@ session_start();
 <body>
 
   
-  <?php
-          $server = "localhost";
-          $username = "root";
-          $password = "";
-          $con = mysqli_connect($server, $username, $password, "food_order");    
-  ?>
-
-  <?php
   
-  if (isset($_POST['username']) && isset($_POST['password'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $sql = "SELECT * FROM user_profile WHERE username = '" . $username . "'";
-    $result = mysqli_query($con, $sql);
-
-    if ($result) {
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $hashedPasswordFromDatabase = $row['password_hash'];
-
-            // Use password_verify to check if the provided password matches the hashed password
-            if (password_verify($password, $hashedPasswordFromDatabase)) {
-                $_SESSION['username'] = $username;
-                echo '<script> window.location.href = "index.php" </script>';
-            } else {
-                echo '<script>alert("Invalid username or password")</script>';
-            }
-        } else {
-            echo '<script>alert("Invalid username or password")</script>';
-        }
-    } else {
-        echo '<script>alert("Error: ' . mysqli_error($con) . '")</script>';
-    }
-} else {
-    // Handle the case where username or password is not set
-}
-
-  ?>
-
 
   <section class="h-100 gradient-form" style="background-color: #eee;">
     <div class="container py-5 h-100">
@@ -157,7 +171,6 @@ session_start();
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
-                      <!-- Use type="submit" to submit the form -->
                       <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit"
                         style="width: 150px; height: 50px;" name="loginButton">Log in</button> <br>
                       <a class="text-muted" href="#!">Forgot password?</a>

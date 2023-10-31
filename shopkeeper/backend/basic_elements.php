@@ -68,14 +68,14 @@
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <div class="input-group-append">
+                    <input type="text" class="form-control" id = "myInput" placeholder="Search...">
+                    <!-- <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button">Search</button>
-                    </div>
+                    </div> -->
                   </div>
                 </li>
                 <li class="breadcrumb-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRowModal" id="addRowButton">Add New Row</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRowModal" id="addRowButton">Add Category</button>
                 </li>
 
 
@@ -88,11 +88,13 @@
               <div class="card-body">
                 <h4 class="card-title">Food Category </h4>
                 <div class="table-responsive">
-                  <table class="table table-hover">
+                  <table class="table table-hover" id="myTable">
                     <thead>
                       <tr>
                         <th>sr.no</th>
                         <th>Category</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                        
                       </tr>
                     </thead>
@@ -113,13 +115,13 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button onclick="editThis('<?php echo $foodId ?>', '<?php echo $foodCatergoryName ?>')" class="btn btn-danger edit-link" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-edit"></i> Edit</button>
+                                <button onclick="editThis('<?php echo $foodId ?>', '<?php echo $foodCatergoryName ?>')" class="btn btn-warning edit-link" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-edit"></i> </button>
                             </div>
                         </td>
 
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-trash-alt"></i> Delete</button>
+                                <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['foodId']; ?>"><i class="fas fa-trash-alt"></i> </button>
                             </div>
                         </td>
                           
@@ -290,6 +292,7 @@
   <!-- js for edit form -->
   <script>
 
+
     function editThis(x,y){
       $('#editCategory').val(y);
       $('#foodId').val(x);
@@ -397,6 +400,18 @@
             });
         });
     });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tbody tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
 </script>
 
 

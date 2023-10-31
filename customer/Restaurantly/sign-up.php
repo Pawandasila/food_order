@@ -5,8 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign In to Your Account - Taste Sculptors</title>
-    <!-- <link rel="stylesheet" href="./assets/css/login.css" /> -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/login.css" />
+    <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
 
 
     <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
@@ -19,48 +19,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha384-KyZXEAg3QhqLMpG8r+6ayZJ8r7B6q6eEc6aDkGS6X4U5j4IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .bg {
-            background: linear-gradient(to right, #00dbde, #fc00ff);
-        }
-
-        /* Card Styles */
-        .card-registration {
-            border: none;
-        }
-
-        /* Form Styles */
-        .form-outline {
-            margin-bottom: 20px;
-        }
-
-        .form-control-lg {
-            border-radius: 1.3rem;
-        }
-
-        .form-control:focus {
-            font-size: 20px;
-            /* Adjust the font size as needed */
-        }
-
-        /* Button Styles */
-        .btn-primary {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        #birthdayDate::placeholder {
-            font-size: 26px;
-            /* Adjust the font size as needed */
-        }
-    </style>
 
     <script>
         function isMobileScreen() {
@@ -80,75 +38,94 @@
         window.addEventListener('load', setBodyClass);
     </script>
 
+    <style>
+        .bg {
+            background-color: black;
+            top: 25px;
+            color:white;
+        }
+
+        .sections {
+            padding: 80px 0;
+            /* Adjust the padding as needed */
+            background-color: blue;
+            /* Set your desired background color */
+            height: 66rem;
+        }
+
+        .card-registration {
+            border-radius: 15px;
+            /* Set the border-radius as needed */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            /* Add a subtle box shadow */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            /* Set the primary button background color */
+            color: #fff;
+            /* Set the text color for the primary button */
+            /* Add any additional styling for the primary button */
+        }
+    </style>
+
 
 </head>
 
 <body class="bg">
-
-<?php
+    <?php
     // Database connection
     $server = "localhost";
     $username = "root";
     $password = "";
     $database = "food_order";
     $con = mysqli_connect($server, $username, $password, $database);
-
-    if (!$con) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
     if (isset($_POST['signup'])) {
-        $shopName = $_POST['shopName'];
+        $username = $_POST['username'];
         $password = $_POST['password'];
-        $desc = $_POST['desc'];
-        $UserName = $_POST['username'];
-        $shopkeeperName = $_POST['shopkeeperName'];
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
         $email = $_POST['email'];
         $phone = $_POST['phoneNumber'];
-        $confirmPassword = $_POST['confirmPassword'];
-
-        // Validate if the form fields are set
-            // Check if passwords match
-            if ($password != $confirmPassword) {
-                echo '<script>alert("Passwords do not match");</script>';
+    
+        $result = mysqli_query($con, "SELECT * FROM user_profile WHERE username = '" . $username . "'");
+    
+        if ($result !== false) { 
+            if (mysqli_num_rows($result) > 0) { 
+                echo '<script> alert("Please select a different username as the username already exists");</script>';
             } else {
-                // Continue with processing the data
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-                // Use prepared statements to prevent SQL injection
-                $stmt = $con->prepare("INSERT INTO `shops`(`ShopName`, `ShopDescription`, `ShopkeeperName`, `UserName`, `Passwords`, `ContactNo`) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $shopName, $desc, $shopkeeperName, $UserName, $hashedPassword, $phone);
-
-                if ($stmt->execute()) {
-                    echo '<script> alert("Shop registered successfully");</script>';
+                $sql = "INSERT INTO user_profile (first_name, last_name, username, password_hash, email, phone_number) VALUES ('$firstName', '$lastName', '$username', '$hashedPassword', '$email', $phone)";
+    
+                if (mysqli_query($con, $sql)) {
+                    echo '<script> alert("user registered successfully");</script>';
                 } else {
-                    echo '<script> alert("Error: ' . $stmt->error . '");</script>';
+                    echo '<script> alert("Error: ' . mysqli_error($con) . '");</script>';
                 }
             }
+        } else {
+            echo '<script> alert("Query error: ' . mysqli_error($con) . '");</script>';
         }
-
+    }
     mysqli_close($con);
-    ?>
+?>
 
 
-
-
-    <section class="vh-100  sections">
+    <section class=" sections">
         <div class="container py-3 h-80">
             <div class="row justify-content-center align-items-center h-80">
                 <div class="col-12 col-lg-8 col-xl-8">
-                    <div class="card shadow-2-strong card-registration" style="border-radius: 44px;">
+                    <div class="card shadow-2-strong card-registration">
                         <div class="card-body p-5 p-md-4">
-
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center font-awesome">Sign Up</h3>
-
                             <form method="post">
+
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="shopName">Shop Name</label>
-                                            <input type="text" id="shopName" name="shopName"
+                                            <label class="form-label form-control-lg" for="firstName">First Name</label>
+                                            <input type="text" id="firstName" name="firstName"
                                                 class="form-control form-control-lg" />
                                         </div>
 
@@ -156,9 +133,8 @@
 
                                     <div class="col-md-6 mb-4">
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="desc">shop
-                                                Description</label>
-                                            <input type="text" id="desc" name="desc"
+                                            <label class="form-label form-control-lg" for="lastName">Last Name</label>
+                                            <input type="text" id="lastName" name="lastName"
                                                 class="form-control form-control-lg" />
                                         </div>
                                     </div>
@@ -169,37 +145,44 @@
 
                                         <div class="form-outline">
                                             <label class="form-label form-control-lg" placeholder="username"
-                                                for="Username">Shopkeeper Name</label>
-                                            <input type="text" id="shopkeeperName" name="shopkeeperName"
+                                                for="Username">Username</label>
+                                            <input type="text" id="Username" name="username"
                                                 class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
-
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="password">username</label>
-                                            <input type="text" id="username" name="username"
+                                            <label class="form-label form-control-lg" for="password">password</label>
+                                            <input type="password" id="password" name="password"
                                                 class="form-control form-control-lg" />
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-0">
+
+                                        <div class="form-outline">
+                                            <label class="form-label form-control-lg" for="confirm">cofirm
+                                                password</label>
+                                            <input type="password" id="confirm" class="form-control form-control-lg" />
                                         </div>
 
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-md-6 mb-0">
-                                        <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="password">Password</label>
-                                            <input type="password" id="password" name="password" class="form-control form-control-lg" />
+                                    <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                        <div class="form-outline datepicker w-100">
+                                            <label for="birthdayDate form-control-lg "
+                                                class="form-label">Birthday</label>
+                                            <input type="date" name="birthdayDate" class="form-control form-control-lg"
+                                                id="birthdayDate" />
                                         </div>
+
                                     </div>
 
-                                    <div class="col-md-6 mb-0">
-                                        <div class="form-outline">
-                                            <label class="form-label form-control-lg" for="confirmPassword">Confirm Password</label>
-                                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" />
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -212,7 +195,6 @@
                                         </div>
 
                                     </div>
-
                                     <div class="col-md-6 mb-4 pb-2">
 
                                         <div class="form-outline">
@@ -224,6 +206,20 @@
 
                                     </div>
                                 </div>
+
+                                <!-- <div class="row">
+                                    <div class="col-12">
+
+                                        <select class="select form-control-lg">
+                                            <option value="1" disabled>Choose option</option>
+                                            <option value="2">Subject 1</option>
+                                            <option value="3">Subject 2</option>
+                                            <option value="4">Subject 3</option>
+                                        </select>
+                                        <label class="form-label select-label">Choose option</label>
+
+                                    </div>
+                                </div> -->
 
                                 <div class="mt-4 pt-2">
                                     <button name="signup" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"

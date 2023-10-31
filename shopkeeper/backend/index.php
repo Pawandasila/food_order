@@ -1,3 +1,16 @@
+<?php
+session_start();
+// echo " <script> alert('hello'); </script>";
+if(!isset($_SESSION['username']) ||  $_SESSION['username']==''){
+    // die("<script> window.location.href ='404.php' </script>");
+    // die("<script>alert('Hello'); </script>");
+    die("<script>alert('You cannot acess the page'); </script>");
+    // header("Location: 404.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

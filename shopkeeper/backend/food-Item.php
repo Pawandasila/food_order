@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,7 +100,7 @@
                         <th>Price</th>
                         <th>Description</th>
                         <th>FoodCategoryId</th>
-                        <th>ShopsId</th> 
+                        <!-- <th>ShopsId</th>  -->
                         <th>Offers</th>  
                         <th>Available Time</th>
                         <th>Time Taken</th>
@@ -105,13 +109,19 @@
                     <tbody id='category'>
 
                       <?php
-                          $result=mysqli_query($con,"SELECT * FROM fooditem"); 
+                        // $_SESSION['shopsId'] =23;
+                          $result=mysqli_query($con,"SELECT * FROM fooditem where shopsId = " .$_SESSION['shopsId']. ""); 
+                          // echo "<script> alert('".$_SESSION['shopsId']."')</script>";
                           while($row=mysqli_fetch_array($result)){
                             $foodId = $row['FoodId'];
                             $FoodName = $row['FoodName'];
                             $price = $row['price']; 
                             $description = $row['description'];   
-                            $foodcategoryId = $row['foodcategoryId'];   
+                            $foodcategoryId = $row['foodcategoryId'];
+                            
+                            $new = mysqli_query($con, "SELECT * FROM foodCategory where foodId = " .$foodcategoryId. "");
+                            $next = mysqli_fetch_assoc($new);
+                            
                             $shopsId = $row['shopsId'];   
                             $offers = $row['offers'];   
                             $available = $row['available'];   
@@ -131,10 +141,7 @@
                           <?php echo $row['description'] ?>
                         </td>
                         <td>
-                          <?php echo $row['foodcategoryId'] ?>
-                        </td>
-                        <td>
-                          <?php echo $row['shopsId'] ?>
+                          <?php echo $next['foodCatergoryName'] ?>
                         </td>
                         <td>
                           <?php echo $row['offers'] ?>
@@ -260,26 +267,30 @@
                   <label for="FoodName">Food Name</label>
                   <input type="text" class="form-control" id="FoodName" name="FoodName" required>
                 </div>
-                <div class="form-group">
-                  <!-- <label for="foodId">Food ID</label> -->
+                <!-- <div class="form-group">
+                   <label for="foodId">Food ID</label>
                   <input type="text" class="form-control" id="foodId" hidden name="foodId" readonly>
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="price">Price</label>
                   <input type="number" class="form-control" id="price" name="price">
                 </div>
+                
                 <div class="form-group">
                   <label for="description">Description</label>
                   <input type="text" class="form-control" id="description" name="description">
                 </div>
                 <div class="form-group">
                   <label for="foodcategoryId">Food Category ID</label>
+                  <!-- dropdown 
+                      food item name
+                -->
                   <input type="text" class="form-control" id="foodcategoryId" name="foodcategoryId">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label for="shopsId">Shops ID</label>
                   <input type="number" class="form-control" id="shopsId" name="shopsId">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label for="offers">Offers</label>
                   <input type="number" class="form-control" id="offers" name="offers">
@@ -493,7 +504,7 @@
             var price = $('#price').val();
             var description = $('#description').val();
             var foodcategoryId = $('#foodcategoryId').val();
-            var shopsId = $('#shopsId').val();
+            // var shopsId = $('#shopsId').val();
             var offers = $('#offers').val();
             var available = $('#available').val();
             var TimeTaken = $('#TimeTaken').val();
