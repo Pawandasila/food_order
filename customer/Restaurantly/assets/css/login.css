@@ -1,128 +1,79 @@
-/* Reset some default styles */
-body,
-h1,
-h2,
-h3,
-p {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-}
-
-/* Global styles */
-.sections {
-    background-color: #f8f9fa;
-}
-
-.container {
-    height: 100%;
-}
-
-.card {
-    border: none;
-}
-
-.card-body {
-    padding: 5rem;
-}
-
-.card img {
-    max-width: 100%;
-}
-
-/* Form styles */
-.form-outline {
-    margin-bottom: 1.5rem;
-}
-
-.form-control::placeholder {
-    font-size: 16px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-    width: 150px;
-    height: 50px;
-    border-radius: 1.3rem;
-    font-size: 1.3rem;
-    text-align: center;
-}
-
-.btn-outline-danger {
-    border-color: #dc3545;
-    color: #dc3545;
-}
-
-.btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: white;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .card-body {
-        padding: 2rem;
-    }
-}
-
-/* Right side content styles */
 .gradient-custom-2 {
-    background: linear-gradient(to right, #007bff, #00bfff);
+  background: #fccb90;
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
-.text-white {
-    line-height: 1.6;
-    font-size: 1.1rem;
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 100vh !important;
+  }
+}
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
 }
 
-/* Additional styles for Sign-up page */
-.card-registration {
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+.gradient-custom {
+  background: #f093fb;
+  background: -webkit-linear-gradient(
+    to bottom right,
+    rgba(240, 147, 251, 1),
+    rgba(245, 87, 108, 1)
+  );
+  background: linear-gradient(
+    to bottom right,
+    rgba(240, 147, 251, 1),
+    rgba(245, 87, 108, 1)
+  );
 }
 
-.card-registration h3 {
-    color: #007bff;
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
 }
 
-.card-registration label {
-    color: #007bff;
+.bg {
+  background: url("../img/gallery/gallery-3.jpg");
 }
 
-.card-registration input,
-.card-registration select,
-.card-registration button {
-    border-radius: 8px;
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 2px solid #333;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(240, 147, 251, 1);
+  outline: none;
+  cursor: pointer;
 }
 
-.card-registration button {
-    background-color: #007bff;
-    color: white;
-    width: 100%;
-    padding: 10px;
-    font-size: 1.2rem;
+input[type="radio"]:checked {
+  background-color: rgba(240, 147, 251, 1);
 }
 
-.card-registration button:hover {
-    background-color: #0056b3;
+.bg{
+  background: url("../img/gallery/gallery-3.jpg");
+  background-position: center;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
 }
 
-.card-registration .datepicker {
-    width: 100%;
-}
-
-.card-registration .form-check-label {
-    color: #555;
-}
-
-.card-registration .form-check-input:checked {
-    background-color: #007bff;
-}
-
-.card-registration .form-check-input:checked:after {
-    color: white;
+.sections{
+  background-color: none;
 }

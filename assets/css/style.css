@@ -99,7 +99,7 @@ body {
   color: var(--sonic-silver);
   font-size: 1.6rem;
   line-height: 1.6;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 body.loaded {

@@ -1,3 +1,35 @@
+<?php ob_start(); ?>
+<?php
+$shopId = $_GET['ShopID'];
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "food_order";
+$con = mysqli_connect($server, $username, $password, $database);
+if (!$con) {
+    echo 'Connection failed: ' . mysqli_connect_error();
+}
+?>
+
+<?php
+if (isset($_POST['submit'])){
+    // Check if the keys exist in the $_POST array
+    $pawan = isset($_POST['pawan']) ? $_POST['pawan'] : '';
+    $price = isset($_POST['price']) ? $_POST['price'] : '';
+    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
+    $totalItem = isset($_POST['totalItem']) ? $_POST['totalItem'] : '';
+
+    // Now you can use these variables as needed
+    echo "Item Name: $pawan, Price: $price, Quantity: $quantity, Total Items: $totalItem";
+    foreach ($pawan as $foodName => $well) {
+      // $foodName is the current element in the array
+      echo $pawan[$well] . "<br>";
+  }
+  }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +76,6 @@
       border-radius: 15px;
       box-shadow: 0 15px 10px rgba(186, 18, 18, 0.2);
       background: #333;
-
     }
 
     .head {
@@ -92,7 +123,6 @@
     .cart tbody .table-row {
       background-color: rgb(163, 151, 151);
       /* color: white; */
-
     }
 
     .button {
@@ -112,7 +142,6 @@
       box-shadow: 0 15px 10px rgba(186, 18, 18, 0.2);
     }
 
-
     /* Style for "Add to cart" and "Remove" buttons */
     .addToCart,
     .remove {
@@ -131,7 +160,67 @@
       list-style: none;
       display: inline;
       /* width: 12rem; */
+    }
 
+    .quantityChange {
+      text-align: center;
+    }
+
+    /* Add this CSS to your stylesheet or in a style tag in the head of your HTML document */
+
+    .remove-item {
+      background-color: #dc3545;
+      /* Red background color */
+      color: #fff;
+      /* White text color */
+      padding: 5px 10px;
+      /* Adjust padding as needed */
+      border: none;
+      cursor: pointer;
+    }
+
+    .remove-item:hover {
+      background-color: #c82333;
+      /* Darker red on hover */
+    }
+
+    .quantity-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-group span {
+      cursor: pointer;
+      padding: 5px;
+      border: 1px solid #ccc;
+      margin: 0 5px;
+    }
+
+    .quantity-group input {
+      width: 40px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+
+    .card:hover {
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .card {
+      max-height: 450px;
+      /* Adjust the value as needed */
+      /* overflow: auto;    */
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 16px;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
@@ -151,99 +240,11 @@
 </head>
 
 <body>
-
-  <!-- ======= Top Bar ======= -->
-  <!-- <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-
-      <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-phone d-flex align-items-center"><span>+91 000 000 0000</span></i>
-        <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 12AM</span></i>
-      </div>
-
-      <div class="languages d-none d-md-flex align-items-center">
-        <ul>
-          <li>En</li>
-          <li><a href="#">De</a></li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Taste Sculptors</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="index.html">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#menu">Cafe's</a></li>
-          <!-- <li><a class="nav-link scrollto" href="#specials">Specials</a></li> -->
-          <!-- <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li> -->
-          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-      <!-- <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">order Now</a> -->
-      <li class="nav-item dropdown mt-0">
-        <a class="avatar-pos nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="../Restaurantly/assets/img/01.png" alt="User-Profile"
-            class="img-fluid avatar avatar-50 avatar-rounded">
-          <div class="caption ms-3 d-none d-md-block ">
-            <h6 class="mb-0 caption-title">Austin </h6>
-          </div>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Privacy Setting</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
-        </ul>
-      </li>
-
-    </div>
-  </header><!-- End Header -->
-
-
-
-
-  <!-- ======= Hero Section ======= -->
-  <!-- <section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
-      <div class="row">
-        <div class="col-lg-8">
-          <h1>Welcome to <span>Taste Sculptors</span></h1>
-
-          <div class="btns">
-            <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
-            <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Order Now</a>
-          </div>
-        </div>
-        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in"
-          data-aos-delay="200">
-          <a href="https://www.youtube.com/watch?v=u6BOC7CDUTQ" class="glightbox play-btn"></a>
-        </div>
-
-      </div>
-    </div>
-  </section> -->
-  
-
+  <?php include "navbar.php"  ?>
   <main id="main">
     <section id="menu" class="menu section-bg">
+
       <div class="container" data-aos="fade-up">
-
-
         <div class="section-title">
           <h2>Menu</h2>
           <p>Check Our Tasty Menu</p>
@@ -253,256 +254,106 @@
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
               <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-starters">Starters</li>
-              <li data-filter=".filter-salads">Salads</li>
-              <li data-filter=".filter-specialty">Specialty</li>
+              <?php
+                            $menue = mysqli_query($con, "SELECT * FROM foodcategory ");
+                            while ($mennShow = mysqli_fetch_array($menue)) {
+                            ?>
+              <li data-filter=".<?php echo $mennShow['foodCatergoryName'] ?>">
+                <?php echo $mennShow['foodCatergoryName'] ?>
+              </li>
+              <?php
+                            }
+                            ?>
             </ul>
           </div>
         </div>
 
-        <div class="row menu-container" data-aos="fade-up" data-aos-delay="400">
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/lobster-bisque.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Lobster Bisque</a><span class="prices">$5.95
-                <button class="cart1" value="Lobster Bisque" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-
-              </span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty" data-aos-delay="300">
-            <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Bread Barrel</a><span class="prices">$6.95 
-                <button class="cart1" value="Bread Barrel" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Crab Cake</a><span class="prices">$7.95
-                <button class="cart1" value="Crab Cake" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Caesar Selections</a><span class="prices">$8.95 
-                <button class="cart1" value="Caesar Selections" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Tuscan Grilled</a><span class="prices">$9.95 
-                <button class="cart1" value="Tuscan Grilled" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-starters">
-            <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Mozzarella Stick</a><span class="prices">$4.95 
-                <button class="cart1" value="Mozzarella Stick" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Lorem, deren, trataro, filede, nerada
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Greek Salad</a><span class="prices">$9.95 <button class="cart1" value="Greek Salad"
-                  style="border: none; margin: 0; background: #1a1814;"> <i class="fa-solid fa-cart-plus"></i>
-                </button></span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach, crisp romaine, tomatoes, and Greek olives
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-salads">
-            <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;">Spinach Salad</a><span class="prices">$9.95 
-                <button class="cart1" value="Spinach Salad" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-specialty">
-            <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
-            <div class="menu-content">
-              <a href="#" style="color: yellow;"> Lobster Roll</a><span class="prices">$12.95 
-                <button class="cart1" value=" Lobster Roll" style="border: none; margin: 0; background: #1a1814;">
-                  <i class="fa-solid fa-cart-plus">
-                  </i>
-                </button>
-                </span>
-            </div>
-            <div class="menu-ingredients">
-              Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-            </div>
-            <!-- </div> -->
-
-          </div>
-
-        </div>
-
-        <div class="container-menu">
-          <div class="head">Your Orders List</div>
-          <table class="cart">
-            <thead>
-              <tr>
-                <th class="number">S.no</th>
-                <th class="name">Item Name</th>
-                <th class="price">Price</th>
-                <th class="total">Total</th>
-                <th class="addToCart">total items</th>
-                <th class="remove">Remove</th>
-
-              </tr>
-            </thead>
-            <tbody class="table-body" id="body-cart">
-
-            </tbody>
-          </table>
-          <div class="button">
-            <button> <a href="cart.html">Proceed</a></button>
-          </div>
-        </div>
-
-    </section>
-
-
-    <!-- End Menu Section -->
-
-  </main>
-  <!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>Taste Sculptors</h3>
-              <p>
-                this new Street <br>
-                yes 10000, anywhere<br><br>
-                <strong>Phone:</strong> +0 0000 0000 00<br>
-                <strong>Email:</strong> cafe@example.com<br>
-              </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="400" >
+          <?php
+              $result = mysqli_query($con, "SELECT * FROM fooditem WHERE shopsId = $shopId");
+              while ($row = mysqli_fetch_array($result)) {
+                $foodcategoryname = $row['foodcategoryId'];
+                $category = mysqli_query($con, " SELECT * FROM foodcategory WHERE foodId = $foodcategoryname");
+                $food = mysqli_fetch_array($category);
+                $imp = $food['foodCatergoryName'];
+              ?>
+          <div class="col-lg-4 menu-item <?php echo $imp ?>" value ="1">
+            <div class="card" style="height: 29rem;">
+              <div class="position-relative">
+                <img src="assets/img/menu/lobster-bisque.jpg" class="card-img-top" alt="" data-bs-toggle="tooltip"
+                  data-bs-placement="top" title="<?php echo $row['description']; ?>">
+                <div class="overlay">
+                  <p class="overlay-text">
+                    <?php echo $row['description']; ?>
+                  </p>
+                </div>
+              </div>
+              <div class="card-body text-center">
+                <div class="additional-info">
+                  <p class="mb-0"><strong>Name:</strong>
+                    <span data-additional="<?php echo $row['FoodName']; ?>">
+                      <input type="text" style="border: none; width: 113px;" class="foodName"
+                        value="<?php echo $row['FoodName']; ?> ">
+                    </span>
+                  </p>
+                  <p class="mb-0"><strong>Price:</strong>
+                    <span class="prices" data-additional="<?php echo $row['price']; ?>">
+                      &#x20b9; <input style="border: none; width: 113px;" type="text"
+                        value="<?php echo $row['price']; ?>"> </span>
+                  </p>
+                  <button class="btn btn-primary cart1 mt-3" id="btn<?php echo $row['FoodId'] ?>" value="<?php echo $row['FoodId'] ?>">
+                    <!-- <input type="text" id="int<?php echo $row['FoodId'] ?>" value="<?php echo $row['FoodId'] ?>" hidden> -->
+                    <i class="fa-solid fa-cart-plus"></i>&emsp; Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#BestFood">Best Food</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#Savour">Savor Perfection</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#FlavourFusion">Flavor Fusion</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#CulinaryBliss">Culinary Bliss</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#TasteSensation">Taste Sensation</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
-          </div>
-
+          <?php
+  }
+  ?>
         </div>
-      </div>
+        <form method="post">
+    <div class="container container-menu">
+        <div class="head">Your Orders List</div>
+        <table class="table cart tbale-hoverable">
+            <thead>
+                <tr>
+                    <th class="number">S.no</th>
+                    <th class="name">Item Name</th>
+                    <th class="price">Price</th>
+                    <th class="addToCart">Total Items</th>
+                    <th class="total">Total</th>
+                    <th class="remove">Remove</th>
+                </tr>
+            </thead>
+            <tbody class="table-body" id="body-cart">
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" style="background:none ; border:none" name="pawan[]" value="oaw" class="form-control" ></td>
+                    <td><input type="text" style="background:none ; border:none" name="price[]" value="jjj" class="form-control" ></td>
+                    <td id="quantity" class="quantity-group"> <span class="decrement">-</span> <input type="text" name="quantity" class="form-control quantityChange" value="1"> <span class="increment">+</span></td>
+                    <td><input type="text" style="background:none ; border:none" name="totalItem[]  " value="kkk" class="form-control" ></td>
+                    <td><button class="remove-item">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button">
+            <button class="btn btn-primary" name="submit" value="submit" type="submit">Proceed</button>
+        </div>
     </div>
+</form>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Taste Sculptors</span></strong>. All Rights Reserved
+
+
       </div>
-      <!-- <div class="credits"> -->
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/Taste Sculptors-restaurant-template/ -->
-      <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-      <!-- </div> -->
-    </div>
-  </footer><!-- End Footer -->
+
+    </section>
+
+<!-- End Menu Section -->
+
+  </main>
+  <!-- End #main -->
 
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
@@ -518,67 +369,75 @@
   <script src="https://kit.fontawesome.com/603603feae.js" crossorigin="anonymous"></script>
 
   <!-- Template Main JS File -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-  <!-- Add this script tag before your closing </body> tag to include jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
   <script>
-    var cart = [];
+    $(document).ready(function(){
+      $('.menu-item').on('click', function(){
+        // alert($(this).val());
+        const foodName = $(this).find('.additional-info .foodName').val();
+        const priceText = $(this).find('.additional-info .prices').find('input').val();
+        const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+        const Id = $(this).find('.cart1').val();
+        const totalItem = price;
+        // alert(Id);
+        var tbody = $('#body-cart');
+        var row = $('<tr>');
+        row.append('<td>' + (tbody.find('tr').length + 1) + '</td>');
+        row.append('<td><input type="text" style="background:none ; border:none" name="pawan[]" value="' + foodName + '" class="form-control" ></td>');
+        row.append('<td><input type="text" style="background:none ; border:none" name="price[]" value="' + price + '" class="form-control" ></td>');
+        row.append('<td id="quantity" class="quantity-group"> <span class="decrement">-</span> <input type="text" name="quantity[]" class="form-control quantityChange" value="1"> <span class="increment">+</span></td>');
+        row.append('<td><input type="text" style="background:none ; border:none" name="totalItem[]" value="' + totalItem + '" class="form-control" ></td>');
+        row.append('<td><button class="remove-item">Remove</button></td>');
 
-    $('#cart1').click(function () {
-      var itemName = document.getElementsByClassName("cart1"); // Replace with the actual item name
+        tbody.append(row);
 
-      var itemPrice = document.getElementsByClassName("prices"); // Replace with the actual item price
+        row.find('.remove-item').on('click', function (){
+          row.remove();
+        });
+        var quantityInput = row.find('#quantity input');
+        var incrementButton = row.find('.increment');
+        var decrementButton = row.find('.decrement');
 
-      // Check if the item is already in the cart
-      var existingItem = cart.find(item => item.name === itemName);
-
-      if (existingItem) {
-        // If the item is already in the cart, increase the quantity and update the total price
-        existingItem.quantity++;
-        existingItem.totalPrice += itemPrice;
-      } else {
-        // If the item is not in the cart, add it to the cart array
-        cart.push({
-          name: itemName,
-          price: itemPrice,
-          quantity: 1,
-          totalPrice: itemPrice,
+        incrementButton.on('click', function () {
+          var currentQuantity = parseInt(quantityInput.val());
+          quantityInput.val(currentQuantity + 1);
+          updateTotal(row);
         });
 
-        // Create a new row for the cart table
-        var newRow = '<tr>';
-        newRow += '<td>x</td>';
-        newRow += '<td>' + itemName + '</td>';
-        newRow += '<td>$' + itemPrice.toFixed(2) + '</td>';
-        newRow += '<td>$' + itemPrice.toFixed(2) + '</td>';
-        newRow += '<td class="addToCart">1</td>';
-        newRow += '<td><button class="removeItem">Remove</button></td>';
-        newRow += '</tr>';
+        decrementButton.on('click', function () {
+          var currentQuantity = parseInt(quantityInput.val());
+          if (currentQuantity > 1) {
+            quantityInput.val(currentQuantity - 1);
+            updateTotal(row);
+          }
+        });
+      });
 
-        $('#body-cart').append(newRow);
+      // Function to update the total when the quantity changes
+      function updateTotal(row) {
+        var quantity = parseInt(row.find('#quantity input').val());
+        var price = parseFloat(row.find('.price').text());
+        var total = quantity * price;
+        row.find('.total').text(total);
       }
     });
+    ob_end_flush();
 
-    // Add an event listener for removing items from the cart
-    $('#body-cart').on('click', '.removeItem', function () {
-      var row = $(this).closest('tr');
-      var itemName = row.find('td:eq(1)').text();
-
-      // Find the index of the item in the cart array
-      var itemIndex = cart.findIndex(item => item.name === itemName);
-
-      if (itemIndex !== -1) {
-        // Remove the item from the cart array and the table row
-        cart.splice(itemIndex, 1);
-        row.remove();
-      }
-    });
   </script>
+
+
+
 
 
 </body>
 
-</html> 
+</html>
