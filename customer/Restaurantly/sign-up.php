@@ -27,10 +27,8 @@
         
             function setBodyClass() {
                 if (isMobileScreen()) {
-                    // document.body.classList.add("gradient-custom");
                     document.body.classList.add("gradient-custom-2"); 
                 } else {
-                    // document.body.classList.add("gradient-custom-2");
                     document.body.classList.remove("gradient-custom-2"); 
                 }
             }
@@ -145,7 +143,7 @@
             <div class="row justify-content-center align-items-center h-80">
                 <div class="col-12 col-lg-8 col-xl-8">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 44px;">
-                        <div class="card-body p-5 p-md-4">
+                        <div class="card-body p-5 p-md-4" >
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center font-awesome">Sign Up</h3>
                             <form method ="post">
                                 <div class="row">

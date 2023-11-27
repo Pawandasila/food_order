@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,32 +98,138 @@
 
         .tabs a.active {
             background: #3366FF;
-            /* Change this to your desired active background color */
             color: #fff;
-            /* Change this to your desired active text color */
         }
 
 
         .tabs a:hover {
             background-color: #b4e186;
-            /* Add a background color for the hover effect */
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* Close button style */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .action {
+            text-align: center;
+        }
+
+
+        .accept {
+            margin-right: 32px
+        }
+
+        @media (max-width: 600px) {
+
+            table,
+            th,
+            td {
+                overflow: scroll;
+                display: block;
+                width: 100%;
+            }
+        }
+
+       
     </style>
 </head>
 
 <body>
     <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
         <?php
      include "navbar.php";
      ?>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-            <!-- partial:../../partials/_sidebar.html -->
             <?php
         include "sidebar.php";
         ?>
-            <!-- partial -->
             <div class="main-panel" style=" height: 50%; overflow: scroll;">
                 <div class="content-wrapper">
                     <div class="page-header">
@@ -127,19 +237,17 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">Food</li>
-                                <li class="breadcrumb-item active" aria-current="page">Food Order</li>
+                                <li class="breadcrumb-item active" aria-current="page">Food Order history</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="tabs">
                         <a href="#" id="food-tab" class="tab-link active">Food</a>
-                        <a href="#" id="food-order-tab" class="tab-link">Food Order</a>
+                        <a href="#" id="food-order-tab" class="tab-link">Food Order History</a>
                         </ul>
                     </div>
-
-
                     <div class="col-lg-6 grid-margin stretch-card table-responsive" id="food-table"
-                        style="height: 100%; width: 70vw; overflow: scroll; ">
+                        style="height: 100%; width: 70vw; overflow: scroll;">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Order </h4>
@@ -148,406 +256,262 @@
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th> User </th>
-                                                <th> First <span id="sortFirstName" class="sort-icon">&#9660;</span>
+                                                <th> Name <span id="sortFirstName" class="sort-icon">&#9660;</span>
                                                 </th>
-                                                <th> Progress </th>
-                                                <th> Customer Id </th>
+                                                <!-- <th> Progress </th> -->
+                                                <!-- <th> Customer Id </th> -->
+                                                <th>Status</th>
                                                 <th> Amount <span id="sortAmount" class="sort-icon">&#9660;</span></th>
-                                                <th>Status <span id="sortStatus" class="sort-icon">&#9660;</span></th>
+                                                <th>Date and Time</th>
                                                 <th> Otp </th>
-                                                <th> Customer Notes </th>
-                                                <th> Actions </th>
+                                                <th>View</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                            $result = mysqli_query($con, "SELECT * FROM orders");
+                                            while ($row = mysqli_fetch_array($result)){
+                                                $customerID = $row["CustomerID"];
+                                                $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
+                                                $userRow = mysqli_fetch_array($user);
+                                            ?>
                                             <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-1.png" alt="image" />
-                                                </td>
-                                                <td> Herman Beck </td>
                                                 <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <?php echo $userRow['first_name']; ?>
                                                 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td><label class="badge badge-info">Fixed</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-2.png" alt="image" />
-                                                </td>
-                                                <td> Messsy Adam </td>
+                                                <td><label class="badge badge-info">
+                                                        <?php echo "pending" //$row['CustomerStatus'] ?>
+                                                    </label></td>
                                                 <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar"
-                                                            style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <?php echo $row['TotalBills']?>
                                                 </td>
-                                                <td> $245.30 </td>
-                                                <td> $245.30 </td>
-                                                <td><label class="badge badge-success">Done</label></td>
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-3.png" alt="image" />
-                                                </td>
-                                                <td> John Richards </td>
                                                 <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <?php echo date('Y-m-d H:i:s');?>
                                                 </td>
-                                                <td> $138.00 </td>
-                                                <td> $138.00 </td>
-                                                <td><label class="badge badge-danger">Pending</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-4.png" alt="image" />
-                                                </td>
-                                                <td> Peter Meggik </td>
                                                 <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-primary" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <input value="<?php echo $row['OTP'] ?>" type="number" name="Otp"
+                                                        id="Otp" maxlength="4" oninput="maxLengthCheck(this)"
+                                                        style="width: 70px; text-align:center;">
+                                                        <button class = "btn btn-primary">submit</button>
                                                 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td><label class="badge badge-danger">Pending</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-1.png" alt="image" />
-                                                </td>
-                                                <td> Edward </td>
                                                 <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar"
-                                                            style="width: 35%" aria-valuenow="35" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <button class="box" style="background:transparent; border:none;" value="<?php echo $row['OrderID'] ?>">
+                                                        <i class="fa fa-eye" style="color:black; font-size:22px;"></i>
+                                                    </button>                                                    
                                                 </td>
-                                                <td> $ 160.25 </td>
-                                                <td> $ 160.25 </td>
-                                                <td><label class="badge badge-danger">Pending</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
                                             </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-2.png" alt="image" />
-                                                </td>
-                                                <td> John Doe </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 65%" aria-valuenow="65" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td> $ 123.21 </td>
-                                                <td> $ 123.21 </td>
-                                                <td><label class="badge badge-success">Done</label></td>
 
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px;"> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-3.png" alt="image" />
-                                                </td>
-                                                <td> Henry Tom </td>
-                                                <td>
-                                                    <div class="progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar"
-                                                            style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </td>
-                                                <td> $ 150.00 </td>
-                                                <td> $ 150.00 </td>
-                                                <td><label class="badge badge-info">fixed</label></td>
-
-                                                <td> <input type="number" name="Otp" id="Otp" maxlength="4"
-                                                        oninput="maxLengthCheck(this)" style="width: 80px; "> </td>
-
-                                                <td>Lorem, ipsum.</td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-
-                                            </tr>
+                                            <?php     
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+                    <!-- Eye Button Modal outside the table div -->
+
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <h2>Order Details</h2>    
+                            <form class= "form" method="post">
+                                <table style="border-collapse: collapse;" id="foodDetails">
+                                    
+                                    <?php 
+                                    // $result = mysqli_query($con, "SELECT * FROM orders ");
+                                // while ($row = mysqli_fetch_array($result)){
+                                    // $customerID = $row["CustomerID"];
+                                    // $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
+                                    // $userRow = mysqli_fetch_array($user); -->
+                                ?> 
+                                    <!-- <tr>
+
+                                        <td>
+                                            
+                                            <?php echo 'Paneer Tikka' ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['TotalBills']; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo 'Chole' ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['CustomersNotes'] ?>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="status" value="">
+                                        </td>
+
+                                    </tr> -->
+                                    <!-- <tr class="action">
+                                        <td colspan="5" class="action">
+                                            <button class="accept" onclick="performAction('accept')">Accept</button>
+                                            <button onclick="performAction('reject')">Reject</button>
+                                        </td>
+                                    </tr> -->
+                                     <?php 
+                                        //} 
+                                     ?> 
+                                    <div class="table-separator"></div>
+                                </table>
+                            </form>
+                            
+                        </div>
+                    </div>
+
+                      <!-- Animated Modal -->
+                      <div id="animatedModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeAnimatedModal()">&times;</span>
+                                <h2>Order Details</h2>
+                                <?php 
+                                    $result = mysqli_query($con, "SELECT * FROM orders");
+                                    while ($row = mysqli_fetch_array($result)){
+                                        $customerID = $row["CustomerID"];
+                                        $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
+                                        $userRow = mysqli_fetch_array($user);
+                                ?>
+                                <table style="border-collapse: collapse;">
+                                    <!-- Nested table for Frontend Table Details and item details -->
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Total Price</th>
+                                        <th>Quantity</th>
+                                        <th><strong>Customer Notes:</strong></th>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo 'masala' ?></td>
+                                        <td><?php echo $row['TotalBills']; ?></td>
+                                        <td><?php echo 'Chole' ?></td>
+                                        <td><?php echo $row['CustomersNotes'] ?></td>
+                                    </tr>
+                                    
+                                    <div class="table-separator"></div>
+                                </table>
+                                <?php } ?>
+                            </div>
+                        </div>
+
 
                     <div class="col-lg-6 grid-margin stretch-card table-responsive" id="food-order-table"
                         style="height: 100%; width: 70vw; overflow: scroll; display: none;">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Order </h4>
+                                <h4 class="card-title">Food Order History </h4>
                                 </p>
                                 <div class="table-responsive ">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th> User </th>
-                                                <th> OrderDetailId <span class="sort-icon">&#9660;</span> </th>
-                                                <th> OrdersId </th>
-                                                <th> Food Id </th>
-                                                <th> Quatity </th>
+                                                <th> Name</th>
+                                                <th> Status <span class="sort-icon">&#9660;</span> </th>
+                                                <th> Date and Time </th>
                                                 <th> Amount </th>
-                                                <th> Actions </th>
+                                                <th> View </th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php 
+                                            $result = mysqli_query($con, "SELECT * FROM orders");
+                                            // $user = mysqli_query($con,"SELECT * FROM ");
+                                            while ($row = mysqli_fetch_array($result)){
+                                            ?>
                                             <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-1.png" alt="image" />
+                                                <td>
+                                                    <?php echo $_SESSION['username'] ?>
                                                 </td>
-                                                <td> Herman Beck </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-
-
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-2.png" alt="image" />
+                                                <td>
+                                                    <?php echo $row['CustomerStatus'] ?>
                                                 </td>
-                                                <td> Messsy Adam </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-3.png" alt="image" />
+                                                <td>
+                                                    <?php  echo date('Y-m-d H:i:s');?>
                                                 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-1">
-                                                    <img src="assets/images/faces-clipart/pic-4.png" alt="image" />
+                                                <td>
+                                                    <?php echo $row['TotalBills'] ?>
                                                 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                <td> $ 77.99 </td>
-                                                
-                                                <td><i class="fas fa-check"
-                                                        style="color: forestgreen; font-size: 24px;"></i> &emsp; <i
-                                                        class="fas fa-times"
-                                                        style="color: red; font-size: 24px;"></i>&emsp13;</td>
+                                                <td>
+                                                <button style="background:transparent; border:none;" id= "myButton" ></button>
+                                                        <i class="fa fa-eye" style="color:black ; font-size:22px;"></i>
+                                                    </button>
+                                                </td>
                                             </tr>
-
+                                            <?php     
+                                        }
+                                        ?>
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
                         </div>
 
+                      
+
+                     
+                    </div>
+                    </div>
+
                     </div>
                     <!-- content-wrapper ends -->
-                    <!-- partial:../../partials/_footer.html -->
-                    <footer class="footer">
-                        <div class="container-fluid d-flex justify-content-between">
-                            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ©
-                                bootstrapdash.com
-                                2021</span>
-                            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
-                                    href="https://www.bootstrapdash.com/bootstrap-admin-template/"
-                                    target="_blank">Bootstrap
-                                    admin
-                                    template</a> from Bootstrapdash.com</span>
-                        </div>
-                    </footer>
-                    <!-- partial -->
+
                 </div>
                 <!-- main-panel ends -->
             </div>
             <!-- page-body-wrapper ends -->
         </div>
-        <!-- container-scroller -->
-        <!-- plugins:js -->
         <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
         <script src="../../assets/js/off-canvas.js"></script>
         <script src="../../assets/js/hoverable-collapse.js"></script>
         <script src="../../assets/js/misc.js"></script>
-        <!-- Include jQuery (must be included before Bootstrap JS) -->
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-        <!-- Include Bootstrap JS (popper.js is required for dropdowns) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-
-        <!-- endinject -->
-        <!-- Custom js for this page -->
         <script src="../../assets/js/file-upload.js"></script>
-        <!-- End custom js for this page -->
         <script>
-            // Get references to the tab elements and table containers
             const foodTab = document.getElementById("food-tab");
             const foodOrderTab = document.getElementById("food-order-tab");
             const foodTableContainer = document.getElementById("food-table");
             const foodOrderTableContainer = document.getElementById("food-order-table");
-
-            // Add click event listeners to the tabs
             foodTab.addEventListener("click", () => {
-                // Show the "Food" table and hide the "Food Order" table
                 foodTableContainer.style.display = "block";
                 foodOrderTableContainer.style.display = "none";
             });
 
             foodOrderTab.addEventListener("click", () => {
-                // Show the "Food Order" table and hide the "Food" table
                 foodTableContainer.style.display = "none";
                 foodOrderTableContainer.style.display = "block";
             });
         </script>
 
         <script>
-            // Get all tab links by class name
             const tabLinks = document.querySelectorAll(".tab-link");
-
-            // Add click event listeners to each tab link
             tabLinks.forEach(tab => {
                 tab.addEventListener("click", function (event) {
-                    // Prevent the default link behavior
                     event.preventDefault();
-
-                    // Remove the "active" class from all tab links
                     tabLinks.forEach(link => link.classList.remove("active"));
-
-                    // Add the "active" class to the clicked tab link
                     this.classList.add("active");
                 });
             });
         </script>
 
-
-
-
         <script>
-            // Get the table body rows and convert them into an array
             const tableRows = Array.from(document.querySelectorAll("#food-table tbody tr"));
-
-            // Define a variable to keep track of the sorting order for the First Name column
-            let sortOrderFirstName = 0; // 0: Original, 1: Ascending, -1: Descending
-
-            // Function to sort the table rows based on the First Name column
+            let sortOrderFirstName = 0;
             function sortTable() {
                 tableRows.sort(function (a, b) {
-                    const textA = a.cells[1].textContent.trim(); // First Name is in the second column (index 1)
+                    const textA = a.cells[1].textContent.trim();
                     const textB = b.cells[1].textContent.trim();
                     return sortOrderFirstName * textA.localeCompare(textB);
                 });
 
-                // Reorder the rows in the table
                 const tableBody = document.querySelector("#food-table tbody");
                 tableRows.forEach(row => tableBody.appendChild(row));
-
-                // Toggle the sorting icon based on the sorting order
-                const sortIcon = document.getElementById("sortFirstName");
-                if (sortOrderFirstName === 1) {
-                    sortIcon.textContent = "\u25B2"; // Ascending arrow
-                } else if (sortOrderFirstName === -1) {
-                    sortIcon.textContent = "\u25BC"; // Descending arrow
-                } else {
-                    sortIcon.textContent = "\u25BC"; // Default to Descending arrow
-                }
             }
-
-
         </script>
 
         <script>
@@ -560,10 +524,80 @@
                 }
             }
 
-            // Add a click event listener to the button to toggle the dropdown
             var dropdownButton = document.getElementById('dropdownButton');
             dropdownButton.addEventListener('click', toggleDropdown);
         </script>
+
+        <!-- JavaScript for eye Modal Handling -->
+
+        <script>
+
+           $(document).ready(function () {
+        $(".fa-eye").on("click", function (){
+            var orderID = $(this).closest("tr").find(".order-id").text();
+            openModal(orderID);
+            });
+            
+            $('.box').on("click", function () {
+                // alert($(this).val());
+                $.ajax({
+                    url: "action.php",
+                    method: "POST",
+                    data: 'action=click&fx='+ $(this).val(),
+                    success: function (response) {
+                        // alert("this");
+                        // alert(response);
+                        $('#foodDetails').empty();
+                        table = "<tr><th>Item Name</th><th>Total Price</th><th>Quantity</th><th><strong>Customer Notes:</strong></th><th><strong>Shopkeeper Status Update:</strong></th></tr>";
+                        $('#foodDetails').append(table);
+                        $('#foodDetails').append(response);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("AJAX Error: " + textStatus + " " + errorThrown);
+                    }
+                });
+            });
+
+        function openModal(orderID) {
+            var modal = $("#myModal");
+            modal.css("display", "block");
+            $("#food-table").css("filter", "blur(5px)");
+        }
+
+        function closeModal() {
+            var modal = $("#myModal");
+            modal.css("display", "none");
+            $("#food-table").css("filter", "none");
+        }
+    });
+            function openAnimatedModal(orderID) {
+                var modal = document.getElementById("animatedModal");
+                modal.style.display = "block";
+                document.getElementById("food-order-table").style.filter = "blur(5px)";
+            }
+
+
+            function closeModal() {
+                var modal = document.getElementById("myModal");
+                modal.style.display = "none";
+
+                // Remove blur effect from the background
+                document.getElementById("food-table").style.filter = "none";
+            }
+
+            function closeAnimatedModal() {
+                var modal = document.getElementById("animatedModal");
+                modal.style.display = "none";
+                document.getElementById("food-order-table").style.filter = "none";
+            }
+
+
+            function performAction(action) {
+                // accept or reject function
+                closeModal();
+            }
+        </script>   
+
 </body>
 
 </html>

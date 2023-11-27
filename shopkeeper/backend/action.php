@@ -4,6 +4,7 @@ $username = "root";
 $password = "";
 $database = "food_order"; 
 
+session_start();
 // Create a database connection
 $con = mysqli_connect($server, $username, $password, $database);
 
@@ -56,6 +57,23 @@ if (isset($_POST['action']) && $_POST['action'] == 'shopInsertCategory') {
     exit();
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'addCategory') {
+    $category = $_POST['category'];
+    $shopId = $_POST['shopId'];
+    
+    $sql = "INSERT INTO `foodcategory` (foodCatergoryName)
+    VALUES ('$category')";
+    if (mysqli_query($con, $sql)) {
+        echo "1"; // Success
+    } else {
+        echo "0"; // Error
+    }
+
+    // Close the database connection
+    mysqli_close($con);
+    exit();
+}
+
 
 if (isset($_POST['action']) && $_POST['action'] == 'editCategory') {
     $foodId = $_POST["foodId"];
@@ -69,15 +87,37 @@ if (isset($_POST['action']) && $_POST['action'] == 'editCategory') {
     $TimeTaken = $_POST["TimeTaken"];
 
     $sql = "UPDATE fooditem SET 
-        FoodName = '$FoodName',
-        price = '$price',
-        description = '$description',
-        foodcategoryId = '$foodcategoryId',
-        shopsId = '$shopsId',
-        offers = '$offers',
-        available = '$available',
-        TimeTaken = '$TimeTaken'
-        WHERE FoodId = $foodId";
+        `FoodName` = '$FoodName',
+        `price` = '$price',
+        `description` = '$description',
+        `foodcategoryId` = '$foodcategoryId',
+        `shopsId` = '$shopsId',
+        `offers` = '$offers',
+        `available` = '$available',
+        `TimeTaken` = '$TimeTaken'
+        WHERE `FoodId` = $foodId";
+
+    if (mysqli_query($con, $sql)) {
+        echo "1"; // Success
+    } else {
+        echo "0"; // Error
+    }
+
+    // Close the database connection
+    mysqli_close($con);
+    exit();
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'editFoodcategory') {
+    $editCate = $_POST['category'];
+    $FoodId = $_POST['foodId'];
+
+    $sql = "UPDATE foodcategory SET 
+        foodCatergoryName = '$editCate'
+        WHERE foodId = $FoodId";
+
+
+        // UPDATE `foodcategory` SET  `foodCatergoryName`='$editcate' , WHERE foodId
 
     if (mysqli_query($con, $sql)) {
         echo "1"; // Success
@@ -92,10 +132,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'editCategory') {
 
 
 if (isset($_POST['action']) && $_POST['action'] == 'deleteData') {
-    $foodId = $_POST["FoodId"];
-   
-
-    $sql= "DELETE FROM `foodcategory` WHERE FoodId = $FoodId";
+    $foodId = $_POST["foodId"];
+    $sql= "DELETE FROM `foodcategory` WHERE foodId = $foodId    ";
     if (mysqli_query($con, $sql)) {
         echo "1"; // Success
     } else {
@@ -106,4 +144,41 @@ if (isset($_POST['action']) && $_POST['action'] == 'deleteData') {
     mysqli_close($con);
     exit();
 }
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'deleteDatacategory') {
+    $foodId = $_POST["FoodId"];
+    $sql= "DELETE FROM `fooditem` WHERE FoodId = $foodId";
+    if (mysqli_query($con, $sql)) {
+        echo "1"; // Success
+    } else {
+        echo "0"; // Error
+    }
+    mysqli_close($con);
+    exit();
+}
+
+
+if (isset($_POST['action']) && $_POST['action'] == 'click') {
+    $fx = $_POST["fx"];
+    // echo $fx;
+    $sql= "SELECT * FROM `orderdeatils` WHERE ordersId = $fx";
+    $query = mysqli_query($con, $sql);
+    $x="";
+    // echo mysqli_num_rows($/query);
+    while($rows = mysqli_fetch_assoc($query)){
+        $sql2= "SELECT * FROM `fooditem` WHERE FoodId = " .$rows['FoodId'];
+        $foodname = mysqli_query($con, $sql2);
+        $hu = mysqli_fetch_assoc($foodname);
+        $x = $x."<tr> <td> ".$hu['FoodName']."</td>";
+        $x=$x."</tr>";
+        // $x.=$rows['FoodId'];
+    }
+    echo $x;
+
+    // Close the database connection
+    mysqli_close($con);
+    exit();
+}
 ?>
+

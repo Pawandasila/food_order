@@ -23,9 +23,9 @@
     integrity="sha384-KyZXEAg3QhqLMpG8r+6ayZJ8r7B6q6eEc6aDkGS6X4U5j4IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="d-flex align-items-center justify-content-center" style=" background-color: #eee;">
 
-  
+
   <?php
           $server = "localhost";
           $username = "root";
@@ -69,51 +69,46 @@
     ?>
 
 
-  <section class="h-100 gradient-form" style="background-color: #eee;">
-    <div class="container py-5 h-100">
+  <section class="h-100 gradient-form">
+    <div class="container py-5 h-70">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
-          <div class="card rounded-3 text-black">
+          <div class="card rounded-3 text-black mx-auto justify-content-center align-items-center"
+            style="width: 500px;">
             <div class="row g-0">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="card-body p-md-5 mx-md-4">
-                  <div class="text-center">
-                    <img
-                      src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bG9nb3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      style="width: 185px;" alt="logo">
+                <div class="text-center mb-4 position-relative" style="width: 195px; height: 195px; overflow: hidden; border-radius: 50%;">
+                  <img src="assets/img/menu/spinach-salad.jpg" style="position: absolute; clip: rect(0, 195px, 195px, 0); width: 100%; height: 100%;" alt="logo">
                     <h4 class="mt-1 mb-5 pb-1">Welcome back</h4>
                   </div>
+                  <div class="card-body p-md-2 mx-md-2">
+                    <form method="post" class="login-form">
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example11">Username</label>
+                        <input type="text" id="form2Example11" class="form-control" name="username"
+                          placeholder="Phone number or email address" />
+                      </div>
 
-                  <form method="post" class="login-form">
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form2Example11">Username</label>
-                      <input type="text" id="form2Example11" class="form-control" name="username"
-                        placeholder="Phone number or email address" />
-                    </div>
+                      <div class="form-outline mb-4">
+                        <label class="form-label" for="form2Example22">Password</label>
+                        <input type="password" id="form2Example22" class="form-control" name="password"
+                          placeholder="Enter your password" />
+                      </div>
 
-                    <div class="form-outline mb-4">
-                      <label class="form-label" for="form2Example22">Password</label>
-                      <input type="password" id="form2Example22" class="form-control" name="password"
-                        placeholder="Enter your password" />
-                    </div>
+                      <div class="text-center pt-1 mb-5 pb-1">
+                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit"
+                          style="width: 150px; height: 50px;" name="loginButton">Log in</button> <br>
+                        <a class="text-muted" href="#!">Forgot password?</a>
+                      </div>
 
-                    <div class="text-center pt-1 mb-5 pb-1">
-                      <!-- Use type="submit" to submit the form -->
-                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit"
-                        style="width: 150px; height: 50px;" name="loginButton">Log in</button> <br>
-                      <a class="text-muted" href="#!">Forgot password?</a>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-center pb-4">
-                      <p class="mb-0 me-2">Don't have an account?</p>
-                      <a href="sign-up.php"><button type="button" class="btn btn-outline-danger">Create new</button></a>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="col-lg-6 d-flex align-items-center gradient-custom-2 bg">
-                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <!-- Content for the right side -->
+                      <div class="d-flex align-items-center justify-content-center pb-4">
+                        <p class="mb-0 me-2">Don't have an account?</p>
+                        <a href="sign-up.php"><button type="button" class="btn btn-outline-danger">Create
+                            new</button></a>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

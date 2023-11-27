@@ -118,10 +118,8 @@ session_start();
                             $price = $row['price']; 
                             $description = $row['description'];   
                             $foodcategoryId = $row['foodcategoryId'];
-                            
                             $new = mysqli_query($con, "SELECT * FROM foodCategory where foodId = " .$foodcategoryId. "");
                             $next = mysqli_fetch_assoc($new);
-                            
                             $shopsId = $row['shopsId'];   
                             $offers = $row['offers'];   
                             $available = $row['available'];   
@@ -157,22 +155,18 @@ session_start();
                             <button onclick="editThis('<?php echo $FoodId ?>', '<?php echo $FoodName ?>', '<?php echo $price ?>', '<?php echo $description ?>', '<?php echo $foodcategoryId ?>', '<?php echo $shopsId ?>', '<?php echo $offers ?>', '<?php echo $available ?>', '<?php echo $TimeTaken ?>')" class="btn btn-danger edit-link" data-foodid="<?php echo $FoodId; ?>">
                             <i class="fas fa-edit"></i> Edit
                             </button>
-
                             </div>
                         </td>
-
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['FoodId']; ?>"><i class="fas fa-trash-alt"></i> Delete</button>
+                              <button type="button" class="btn btn-danger delete-button" data-foodid="<?php echo $row['FoodId']; ?>"><i class="fas fa-trash-alt"></i> Delete</button>
                             </div>
                         </td>
-                          
                       </tr>
+
                       <?php
                       }
-
                       ?>
-
                     </tbody>
                   </table>
                 </div>
@@ -196,43 +190,43 @@ session_start();
                   <!-- Add input fields for editing course details here -->
                   <div class="form-group">
                     <!-- <label for="editCategory">FoodId</label> -->
-                    <input type="hidden" class="form-control" id="foodId" name="foodid" required>
+                    <input type="hidden" class="form-control" id="foodIdEdit" name="foodid" required>
                   </div>
                   <div class="form-group">
                   <label for="FoodName">Food Name</label>
-                  <input type="text" class="form-control" id="FoodName" name="FoodName" required>
+                  <input type="text" class="form-control" id="FoodNameEdit" name="FoodName" required>
                 </div>
                 <div class="form-group">
                   <!-- <label for="foodId">Food ID</label> -->
-                  <input type="text" class="form-control" id="foodId" name="foodId" readonly hidden>
+                  <input type="text" class="form-control" id="foodIdEdit" name="foodId" readonly hidden>
                 </div>
                 <div class="form-group">
                   <label for="price">Price</label>
-                  <input type="text" class="form-control" id="price" name="price">
+                  <input type="text" class="form-control" id="priceEdit"  name="price">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                  <input type="text" class="form-control" id="description" name="description">
+                  <input type="text" class="form-control" id="descriptionEdit" name="description">
                 </div>
                 <div class="form-group">
                   <label for="foodcategoryId">Food Category ID</label>
-                  <input type="text" class="form-control" id="foodcategoryId" name="foodcategoryId">
+                  <input type="text" class="form-control" id="foodcategoryIdEdit" name="foodcategoryId">
                 </div>
                 <div class="form-group">
                   <label for="shopsId">Shops ID</label>
-                  <input type="text" class="form-control" id="shopsId" name="shopsId">
+                  <input type="text" class="form-control" id="shopsIdEdit" name="shopsId">
                 </div>
                 <div class="form-group">
                   <label for="offers">Offers</label>
-                  <input type="text" class="form-control" id="offers" name="offers">
+                  <input type="text" class="form-control" id="offersEdit" name="offers">
                 </div>
                 <div class="form-group">
                   <label for="available">Available</label>
-                  <input type="text" class="form-control" id="available" name="available">
+                  <input type="text" class="form-control" id="availableEdit" name="available">
                 </div>
                 <div class="form-group">
                   <label for="TimeTaken">Time Taken</label>
-                  <input type="text" class="form-control" id="TimeTaken" name="TimeTaken">
+                  <input type="text" class="form-control" id="TimeTakenEdit" name="TimeTaken">
                 </div>
                   <!-- <div class="form-group">
                     <label for="editItem">Item</label>
@@ -267,10 +261,6 @@ session_start();
                   <label for="FoodName">Food Name</label>
                   <input type="text" class="form-control" id="FoodName" name="FoodName" required>
                 </div>
-                <!-- <div class="form-group">
-                   <label for="foodId">Food ID</label>
-                  <input type="text" class="form-control" id="foodId" hidden name="foodId" readonly>
-                </div> -->
                 <div class="form-group">
                   <label for="price">Price</label>
                   <input type="number" class="form-control" id="price" name="price">
@@ -287,10 +277,6 @@ session_start();
                 -->
                   <input type="text" class="form-control" id="foodcategoryId" name="foodcategoryId">
                 </div>
-                <!-- <div class="form-group">
-                  <label for="shopsId">Shops ID</label>
-                  <input type="number" class="form-control" id="shopsId" name="shopsId">
-                </div> -->
                 <div class="form-group">
                   <label for="offers">Offers</label>
                   <input type="number" class="form-control" id="offers" name="offers">
@@ -303,17 +289,11 @@ session_start();
                   <label for="TimeTaken">Time Taken</label>
                   <input type="number" class="form-control" id="TimeTaken" name="TimeTaken">
                 </div>
-                  <!-- <div class="form-group">
-                    <label for="newItem">Item</label>
-                    <input type="text" class="form-control" id="newItem" name="newItem" required>
-                  </div> -->
-                  <!-- Add more input fields as needed -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="addRowForm">Add Row</button>
+                    <button type="submit" class="btn btn-primary" id="addRow">Add Row</button>
                 </div>  
-
               </form>
             </div>
           </div>
@@ -392,70 +372,73 @@ session_start();
 
   <!-- js for edit form -->
   <script>
-  function editThis(x, y, a, b, c, d, e, f, g) {
-    $('#FoodName').val(y);
-    $('#foodId').val(x);
-    $('#price').val(a);
-    $('#description').val(b);
-    $('#foodcategoryId').val(c);
-    $('#shopsId').val(d);
-    $('#offers').val(e);
-    $('#available').val(f);
-    $('#TimeTaken').val(g);
-  }
+    
+        function editThis(x, y, a, b, c, d, e, f, g) {
+          alert('Please enter');
+          alert(x);
+          alert(y);
+          alert(a);
+          alert(b);
+          alert(c);
+          alert(d);
+          alert(e);
+          alert(f);
+          alert(g);
 
-  $(document).ready(function () {
-    $(".edit-link").click(function (e) {
-      $("#editCourseModal").modal("show");
-    });
-  });
+          $('#FoodNameEdit').val(y);
+          $('#foodIdEdit').val(x);
+          $('#priceEdit').val(a);
+          $('#descriptionEdit').val(b);
+          $('#foodcategoryIdEdit').val(c);
+          $('#shopsIdEdit').val(d);
+          $('#offersEdit').val(e);
+          $('#availableEdit').val(f);
+          $('#TimeTakenEdit').val(g);
+        }
 
-  function saveChanges() {
-    var foodId = $('#foodId').val();
-    var FoodName = $('#FoodName').val();
-    var price = $('#price').val();
-    var description = $('#description').val();
-    var foodcategoryId = $('#foodcategoryId').val();
-    var shopsId = $('#shopsId').val();
-    var offers = $('#offers').val();
-    var available = $('#available').val();
-    var TimeTaken = $('#TimeTaken').val();
+        $(".edit-link").click(function (e) {
+            $("#editCourseModal").modal("show");
+        });
 
-    $.ajax({
-      url: 'action.php',
-      type: 'POST',
-      data: {
-        action: 'editCategory',
-        FoodName: FoodName,
-        foodId: foodId,
-        price: price,
-        description: description,
-        foodcategoryId: foodcategoryId,
-        shopsId: shopsId,
-        offers: offers,
-        available: available,
-        TimeTaken: TimeTaken
-      },
-      success: function (data) {
-        var td = "<tr><td>" + foodId + "</td>";
-        td += "<td>" + FoodName + "</td>";
-        td += "<td>" + price + "</td>";
-        td += "<td>" + description + "</td>";
-        td += "<td>" + foodcategoryId + "</td>";
-        td += "<td>" + shopsId + "</td>";
-        td += "<td>" + offers + "</td>";
-        td += "<td>" + available + "</td>";
-        td += "<td>" + TimeTaken + "</td></tr>";
-        $('#editCategory').html(td); // Use html() to replace the content
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        alert('AJAX request failed:', textStatus, errorThrown);
-      }
-    });
+        $(document).ready(function () {
+          function saveChanges() {
+              var foodId = $('#foodId').val();
+              var FoodName = $('#FoodName').val();
+              var price = $('#price').val();
+              var description = $('#description').val();
+              var foodcategoryId = $('#foodcategoryId').val();
+              var shopsId = $('#shopsId').val();
+              var offers = $('#offers').val();
+              var available = $('#available').val();
+              var TimeTaken = $('#TimeTaken').val();
 
-    $("#editCourseModal").modal("hide");
-  }
+              $.ajax({
+                  url: 'action.php',
+                  type: 'POST',
+                  data: 
+                    'action=editCategory&FoodName=' + FoodName + '&Price=' + Price + '&Description=' + Description + '&FoodCategoryId=' + ShopId + '&Offers=' + offers + '&Available=' + Available + '&TimeTaken=' + TimeTaken,
+                  success: function (data) {
+                      var td = "<tr><td>" + foodId + "</td>";
+                      td += "<td>" + FoodName + "</td>";
+                      td += "<td>" + price + "</td>";
+                      td += "<td>" + description + "</td>";
+                      td += "<td>" + foodcategoryId + "</td>";
+                      td += "<td>" + shopsId + "</td>";
+                      td += "<td>" + offers + "</td>";
+                      td += "<td>" + available + "</td>";
+                      td += "<td>" + TimeTaken + "</td></tr>";
+                      $('#editCategory').html(td); // Use html() to replace the content
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      alert('AJAX request failed:', textStatus, errorThrown);
+                  }
+              });
+
+              $("#editCourseModal").modal("hide");
+          }
+        });
 </script>
+
 
   <!-- js for delete form -->
   <script>
@@ -464,18 +447,19 @@ session_start();
             var foodId = $(this).data('foodid');
             $('#deleteConfirmationModal').data('foodid', foodId);
             $('#deleteConfirmationModal').modal('show');
-          });
-          
-          $('#confirmDeleteButton').click(function () {
+            alert(foodId);
+        });
+        
+        $('#confirmDeleteButton').click(function () {
             var foodId = $('#deleteConfirmationModal').data('foodid');
+
             $.ajax({
                 url: 'action.php',
                 type: 'POST',
-                data: 'action=deleteData&FoodId=' + FoodId,
+                data: 'action=deleteDatacategory&FoodId=' + foodId, // Fix the variable name here
                 success: function (data) {
-                    // alert("hello ");
+                    alert(data);
                     location.reload();
-                    
                     // Hide the modal after adding a new row
                     hideAddRowModal();
                 },
@@ -489,15 +473,14 @@ session_start();
 </script>
 
 
+
 <script>
     $(document).ready(function () {
-        // Function to hide the modal
         function hideAddRowModal() {
-            $("#addRowModal").modal("hide");
+          $("#addRowModal").modal("hide");
         }
-        
 
-        $('#addRowForm').on('submit', function (e) {
+        $('#addRow').on('submit', function (e) {
             // e.preventDefault();
             var foodId = $('#foodId').val();
             var FoodName = $('#FoodName').val();
@@ -508,6 +491,15 @@ session_start();
             var offers = $('#offers').val();
             var available = $('#available').val();
             var TimeTaken = $('#TimeTaken').val();
+
+            alert('foodId: ' + foodId);
+            alert('FoodName: ' + FoodName);
+            alert('price: ' + price);
+            alert('description: ' + description);
+            alert('foodcategoryId: ' + foodcategoryId);
+            alert('offers: ' + offers);
+            alert('available: ' + available);
+            alert('TimeTaken: ' + TimeTaken);
 
             $.ajax({
                 url: 'action.php',
@@ -539,13 +531,6 @@ session_start();
         });
     });
 </script>
-
-
-
-
-
-
-  
 
   <!-- End custom js for this page -->
 </body>

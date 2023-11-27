@@ -11,23 +11,6 @@ if (!$con) {
 }
 ?>
 
-<?php
-if (isset($_POST['submit'])){
-    // Check if the keys exist in the $_POST array
-    $pawan = isset($_POST['pawan']) ? $_POST['pawan'] : '';
-    $price = isset($_POST['price']) ? $_POST['price'] : '';
-    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
-    $totalItem = isset($_POST['totalItem']) ? $_POST['totalItem'] : '';
-
-    // Now you can use these variables as needed
-    echo "Item Name: $pawan, Price: $price, Quantity: $quantity, Total Items: $totalItem";
-    foreach ($pawan as $foodName => $well) {
-      // $foodName is the current element in the array
-      echo $pawan[$well] . "<br>";
-  }
-  }
-?>
-
 
 
 <!DOCTYPE html>
@@ -107,14 +90,12 @@ if (isset($_POST['submit'])){
       color: white;
     }
 
-    /* Style for table data cells */
     .cart td {
       padding: 10px 15px;
       color: #000;
       border-bottom: 1px solid #ddd;
     }
 
-    /* Alternate row background color */
     .cart tbody tr {
       background-color: #f2f2f2;
       color: black;
@@ -122,7 +103,6 @@ if (isset($_POST['submit'])){
 
     .cart tbody .table-row {
       background-color: rgb(163, 151, 151);
-      /* color: white; */
     }
 
     .button {
@@ -142,13 +122,11 @@ if (isset($_POST['submit'])){
       box-shadow: 0 15px 10px rgba(186, 18, 18, 0.2);
     }
 
-    /* Style for "Add to cart" and "Remove" buttons */
     .addToCart,
     .remove {
       text-align: center;
     }
 
-    /* Hover effect on buttons */
     .remove:hover {
       background-color: #333;
       color: white;
@@ -159,29 +137,23 @@ if (isset($_POST['submit'])){
       text-decoration: none;
       list-style: none;
       display: inline;
-      /* width: 12rem; */
     }
 
     .quantityChange {
       text-align: center;
     }
 
-    /* Add this CSS to your stylesheet or in a style tag in the head of your HTML document */
 
     .remove-item {
       background-color: #dc3545;
-      /* Red background color */
       color: #fff;
-      /* White text color */
       padding: 5px 10px;
-      /* Adjust padding as needed */
       border: none;
       cursor: pointer;
     }
 
     .remove-item:hover {
       background-color: #c82333;
-      /* Darker red on hover */
     }
 
     .quantity-group {
@@ -209,8 +181,6 @@ if (isset($_POST['submit'])){
 
     .card {
       max-height: 450px;
-      /* Adjust the value as needed */
-      /* overflow: auto;    */
     }
 
     .overlay-text {
@@ -229,11 +199,9 @@ if (isset($_POST['submit'])){
       }
     }
 
-    /* CSS for mobile view */
     @media screen and (max-width: 768px) {
       .btn button {
         background-color: #FF0000;
-        /* Change button color for mobile view */
       }
     }
   </style>
@@ -241,6 +209,55 @@ if (isset($_POST['submit'])){
 
 <body>
   <?php include "navbar.php"  ?>
+
+  <?php
+if (isset($_POST['submit'])){
+    $pawan = isset($_POST['pawan']) ? $_POST['pawan'] : 'array()';
+    $Id = isset($_POST['Id']) ? $_POST['Id'] : 'array()';
+    $price = isset($_POST['price']) ? $_POST['price'] : 'array()';
+    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 'array()';
+    $totalItem = isset($_POST['totalItem']) ? $_POST['totalItem'] : 'array()';
+    $sum = 0;
+    $dateAndTime = date("Y-m-d H:i:s");
+    $otp = rand(1000, 9999);
+    
+    for( $i =0 ; $i < count($totalItem) ; $i++ ) {  
+      $sum+=$totalItem[$i];
+    }
+    $uer = $_SESSION['userId'];
+    // echo "<script> alert('".$uer."') </script>";
+    $insertQuery = "INSERT INTO `orders` (CustomerID, DateAndTime, TotalBills, OTP , shopID, OrderStatus, CustomerStatus, CustomersNotes) VALUES " ;
+    $insertQuery .= "($uer, '$dateAndTime', '$sum', $otp, '$shopId' ,'Pending', NULL, NULL),";
+    
+    
+    $insertQuery = rtrim($insertQuery, ',');
+
+    if ($con->query($insertQuery) === TRUE) {
+        echo '<script> alert("Order details inserted successfully!"); </script>';
+    } else {
+        echo '<script> alert("Error: ' . $con->error . '"); </script>';
+    }
+
+    $insertOrderId= mysqli_insert_id($con);
+    // echo " <script> alert('" . $insertOrderId."')</script> ;";
+
+    for( $i=0; $i<count($pawan) ; $i++){
+      echo "<script> alert('". $pawan[$i]. "')</script>";
+      $insertfooddetails = "INSERT INTO `orderdeatils`( `ordersId`, `FoodId`, `Quantity`, `Amount`)  VALUES  ($insertOrderId, $Id[$i], $quantity[$i] ,$totalItem[$i])";
+      mysqli_query($con,$insertfooddetails);
+    }
+
+    
+
+    // foreach ($pawan as $key => $Id) {
+    // }
+    
+    // echo '<script> alert("'.$sum. '")</script>';
+}
+?>
+
+
+
   <main id="main">
     <section id="menu" class="menu section-bg">
 
@@ -255,15 +272,15 @@ if (isset($_POST['submit'])){
             <ul id="menu-flters">
               <li data-filter="*" class="filter-active">All</li>
               <?php
-                            $menue = mysqli_query($con, "SELECT * FROM foodcategory ");
-                            while ($mennShow = mysqli_fetch_array($menue)) {
-                            ?>
+                $menue = mysqli_query($con, "SELECT * FROM foodcategory ");
+                while ($mennShow = mysqli_fetch_array($menue)) {
+              ?>
               <li data-filter=".<?php echo $mennShow['foodCatergoryName'] ?>">
                 <?php echo $mennShow['foodCatergoryName'] ?>
               </li>
               <?php
-                            }
-                            ?>
+                }
+              ?>
             </ul>
           </div>
         </div>
@@ -328,17 +345,11 @@ if (isset($_POST['submit'])){
                 </tr>
             </thead>
             <tbody class="table-body" id="body-cart">
-                <tr>
-                    <td>1</td>
-                    <td><input type="text" style="background:none ; border:none" name="pawan[]" value="oaw" class="form-control" ></td>
-                    <td><input type="text" style="background:none ; border:none" name="price[]" value="jjj" class="form-control" ></td>
-                    <td id="quantity" class="quantity-group"> <span class="decrement">-</span> <input type="text" name="quantity" class="form-control quantityChange" value="1"> <span class="increment">+</span></td>
-                    <td><input type="text" style="background:none ; border:none" name="totalItem[]  " value="kkk" class="form-control" ></td>
-                    <td><button class="remove-item">Remove</button></td>
-                </tr>
+                
             </tbody>
         </table>
         <div class="button">
+            
             <button class="btn btn-primary" name="submit" value="submit" type="submit">Proceed</button>
         </div>
     </div>
@@ -392,7 +403,8 @@ if (isset($_POST['submit'])){
         var tbody = $('#body-cart');
         var row = $('<tr>');
         row.append('<td>' + (tbody.find('tr').length + 1) + '</td>');
-        row.append('<td><input type="text" style="background:none ; border:none" name="pawan[]" value="' + foodName + '" class="form-control" ></td>');
+        row.append('<td><input type="text" style="background:none ; border:none" name="pawan[]" value="' + foodName + '" class="form-control" >');
+        row.append('<input type="hidden" style="background:none ;  border:none" name="Id[]" value=" ' + Id + '" class="form-control" ></td>');
         row.append('<td><input type="text" style="background:none ; border:none" name="price[]" value="' + price + '" class="form-control" ></td>');
         row.append('<td id="quantity" class="quantity-group"> <span class="decrement">-</span> <input type="text" name="quantity[]" class="form-control quantityChange" value="1"> <span class="increment">+</span></td>');
         row.append('<td><input type="text" style="background:none ; border:none" name="totalItem[]" value="' + totalItem + '" class="form-control" ></td>');
@@ -422,7 +434,6 @@ if (isset($_POST['submit'])){
         });
       });
 
-      // Function to update the total when the quantity changes
       function updateTotal(row) {
         var quantity = parseInt(row.find('#quantity input').val());
         var price = parseFloat(row.find('.price').text());

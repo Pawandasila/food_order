@@ -1,3 +1,16 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans- rif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee; /* Set the background color if needed */
+}
+
 .gradient-custom-2 {
   background: #fccb90;
   background: -webkit-linear-gradient(
@@ -10,11 +23,19 @@
   background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
+.gradient-form {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .gradient-form {
     height: 100vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
+
 @media (min-width: 769px) {
   .gradient-custom-2 {
     border-top-right-radius: 0.3rem;
@@ -42,12 +63,9 @@
   padding-left: 0.75em;
   padding-right: 0.75em;
 }
+
 .card-registration .select-arrow {
   top: 13px;
-}
-
-.bg {
-  background: url("../img/gallery/gallery-3.jpg");
 }
 
 input[type="radio"] {
@@ -65,15 +83,4 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
   background-color: rgba(240, 147, 251, 1);
-}
-
-.bg{
-  background: url("../img/gallery/gallery-3.jpg");
-  background-position: center;
-  /* background-repeat: no-repeat; */
-  background-size: cover;
-}
-
-.sections{
-  background-color: none;
 }

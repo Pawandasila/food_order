@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,11 +99,9 @@
                         <th>Category</th>
                         <th>Edit</th>
                         <th>Delete</th>
-                       
                       </tr>
                     </thead>
                     <tbody id='category'>
-
                       <?php
                           $result=mysqli_query($con,"SELECT * FROM foodcategory"); 
                           while($row=mysqli_fetch_array($result)){
@@ -193,11 +195,9 @@
                     <label for="newCategory">Category</label>
                     <input type="text" class="form-control" id="newCategory" name="newCategory" required>
                   </div>
-                  <!-- <div class="form-group">
-                    <label for="newItem">Item</label>
-                    <input type="text" class="form-control" id="newItem" name="newItem" required>
-                  </div> -->
-                  <!-- Add more input fields as needed -->
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="shopId"  name="newCategory" hidden required>
+                  </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -291,13 +291,9 @@
 
   <!-- js for edit form -->
   <script>
-
-
     function editThis(x,y){
       $('#editCategory').val(y);
-      $('#foodId').val(x);
-
-      
+      $('#foodId').val(x); 
     }
     $(document).ready(function () {
       
@@ -313,12 +309,12 @@
       var editCategory = $('#editCategory').val();
       // alert(foodId);
       // alert(editCategory);
-
       $.ajax({
                 url: 'action.php',
                 type: 'POST',
-                data: 'action=editCategory&category=' + editCategory + '&foodId=' + foodId,
+                data: 'action=editFoodcategory&category=' + editCategory + '&foodId=' + foodId,
                 success: function (data) {
+                  alert(data);
                   var td = "<tr><td>" + editCategory + "</td></tr>";
                   $('#editCategory').update(td);
                   // alert("helo");
@@ -327,9 +323,6 @@
                   alert('AJAX request failed:', textStatus, errorThrown);
                 }
         });
-
-
-
       $("#editCourseModal").modal("hide");
     }
   </script>
@@ -337,7 +330,7 @@
   <!-- js for delete form -->
   <script>
     $(document).ready(function () {
-        $('.delete-button').click(function () {
+        $('.delete-button').click(function (){
             var foodId = $(this).data('foodid');
             $('#deleteConfirmationModal').data('foodid', foodId);
             
@@ -353,7 +346,7 @@
                 type: 'POST',
                 data: 'action=deleteData&foodId=' + foodId,
                 success: function (data) {
-                    // alert("hello ");
+                    alert(data );
                     location.reload();
                     hideAddRowModal();
                 },
@@ -379,14 +372,20 @@
         // });
 
         $('#addRowForm').on('submit', function (e) {
-            // e.preventDefault();
+          alert("hello");
+            e.preventDefault();
             var category = $('#newCategory').val();
+            var shopId = $('#shopId').val();
+
+            alert(category);
+            // alert(shopId);
 
             $.ajax({
                 url: 'action.php',
                 type: 'POST',
-                data: 'action=shopInsertCategory&category=' + category,
+                data: 'action=addCategory&category=' + category,
                 success: function (data) {
+                  alert(data)
                     var td = "<tr><td>" + category + "</td></tr>"
                     $('#category').append(td);
                     $('#newCategory').val('');
