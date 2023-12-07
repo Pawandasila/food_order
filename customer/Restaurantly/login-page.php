@@ -78,9 +78,12 @@
             <div class="row g-0">
               <div class="col-lg-12">
                 <div class="card-body p-md-5 mx-md-4">
-                <div class="text-center mb-4 position-relative" style="width: 195px; height: 195px; overflow: hidden; border-radius: 50%;">
-                  <img src="assets/img/menu/spinach-salad.jpg" style="position: absolute; clip: rect(0, 195px, 195px, 0); width: 100%; height: 100%;" alt="logo">
-                    <h4 class="mt-1 mb-5 pb-1">Welcome back</h4>
+                  <div class="text-center mb-4">
+                    <div style="width: 195px; height: 195px; overflow: hidden; margin: 0 auto; border-radius: 50%;">
+                      <img src="assets/img/menu/spinach-salad.jpg"
+                        style="width: 100%; height: 100%; border-radius: 50%;" alt="logo">
+                    </div>
+                    <h4 class="text-center mt-3 mb-5 pb-1">Welcome back</h4>
                   </div>
                   <div class="card-body p-md-2 mx-md-2">
                     <form method="post" class="login-form">

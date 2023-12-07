@@ -71,11 +71,11 @@ session_start();
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <div class="input-group-append">
+                <div class="input-group">
+                    <input type="text" class="form-control" id = "myInput" placeholder="Search...">
+                    <!-- <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button">Search</button>
-                    </div>
+                    </div> -->
                   </div>
                 </li>
                 <li class="breadcrumb-item">
@@ -345,32 +345,34 @@ session_start();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-
-
   <!-- Include Popper.js (required for Bootstrap dropdowns) -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-
   <!-- Include Bootstrap JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
   <!-- Include your custom scripts after including jQuery, Popper.js, and Bootstrap JS -->
-  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-  <script src="../../assets/js/off-canvas.js"></script>
-  <script src="../../assets/js/hoverable-collapse.js"></script>
-  <script src="../../assets/js/misc.js"></script>
-  <script src="../../assets/js/file-upload.js"></script>
-
- 
- 
+  <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/todolist.js"></script>
   <script src="../../assets/js/file-upload.js"></script>
   <script src="assets/js/dashboard.js"></script>
   <!-- Include Chart.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-
-
-  <!-- js for edit form -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script> -->
+  
+<script>
+   $(document).ready(function () {
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myTable tbody tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
   <script>
     
         function editThis(x, y, a, b, c, d, e, f, g) {
@@ -438,9 +440,6 @@ session_start();
           }
         });
 </script>
-
-
-  <!-- js for delete form -->
   <script>
     $(document).ready(function () {
         $('.delete-button').click(function () {
@@ -471,9 +470,6 @@ session_start();
         });
     });
 </script>
-
-
-
 <script>
     $(document).ready(function () {
         function hideAddRowModal() {
@@ -531,6 +527,7 @@ session_start();
         });
     });
 </script>
+
 
   <!-- End custom js for this page -->
 </body>

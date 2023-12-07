@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Fasteat - The Best Restaurants In Your Home</title>
+  <title>Fast delivary - The Best Restaurants In Your Home</title>
   <meta name="title" content="Fasteat - The Best Restaurants In Your Home">
   <meta name="description" content="This is a food html template made by codewithsadee">
 
@@ -16,9 +16,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
-
+  <style>
+    /* Logo Style for Desktop View */
+    /* Logo Style for Mobile View */
+    @media (max-width: 767px) {
+      .logo .mobile-logo {
+        display: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -31,7 +37,9 @@
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="./assets/images/logo-transparent-svg.svg" width="148" height="28" alt="Fasteat home">
+        <!-- Mobile Logo -->
+        <img src="./assets/images/logo.png" width="148" height="28" alt="Fasteat home" class="mobile-logo logo1" style = "border-radius : 50%">
+        <!-- Desktop Logo -->
       </a>
 
       <nav class="navbar" data-navbar>
@@ -39,28 +47,19 @@
           <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
         </button>
 
-        <a href="#" class="logo">
-          <img src="./assets/images/logo-transparent-svg.svg" width="148" height="38" alt="Fasteat home">
-        </a>
-
         <ul class="navbar-list">
-
           <li class="navbar-item">
-            <a href="Index.html" class="navbar-link" data-nav-link>Home</a>
+            <a href="Index.php" class="navbar-link" data-nav-link>Home</a>
           </li>
-
           <li class="navbar-item">
-            <a href="#" class="navbar-link" data-nav-link>About Us</a>
+            <a href="about.php" class="navbar-link" data-nav-link>About Us</a>
           </li>
-
           <li class="navbar-item">
-            <a href="#cafe" class="navbar-link" data-nav-link>Cafe's</a>
+            <a href="#" class="navbar-link" data-nav-link>Cafe's</a>
           </li>
-
           <li class="navbar-item">
-            <a href="contact.html" class="navbar-link" data-nav-link>Contacts</a>
+            <a href="contact.php" class="navbar-link" data-nav-link>Contacts</a>
           </li>
-
         </ul>
       </nav>
 
@@ -68,8 +67,7 @@
         <button class="cart-btn" aria-label="cart">
           <ion-icon name="bag" aria-hidden="true"></ion-icon>
         </button>
-
-        <a href="#" class="btn btn-primary has-after">Order Now</a>
+        <a href="./customer/Restaurantly/login-page.php" class="btn btn-primary has-after">Order Now</a>
       </div>
 
       <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
@@ -80,10 +78,6 @@
 
     </div>
   </header>
-
-
-
-
 
   <main>
     <article>
@@ -96,10 +90,10 @@
             <h1 class="h1 hero-title">The Best Restaurants In Your Home</h1>
 
             <p class="hero-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+              One cannot think well, love well, sleep well, if one has not dined wel
             </p>
 
-            <a href="#" class="btn btn-secondary has-after">Order Now</a>
+            <a href="./customer/Restaurantly/login-page.php" class="btn btn-primary has-after">Order Now</a>
           </div>
 
           <figure class="hero-banner" data-reveal>
@@ -138,8 +132,8 @@
                   </h3>
 
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam, vitae? Lorem ipsum dolor, sit amet
-                    consectetur adipisicing elit. Totam, placeat.
+                    First, you need to select a cafe from the list of available cafes for the website. You can see the
+                    ratings, reviews, and menus of each cafe before you make your choice.
                   </p>
 
                 </div>
@@ -163,8 +157,9 @@
                   </h3>
 
                   <p class="card-text">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, minima? Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Labore, voluptate.
+                    Next, you need to select the items you want to order from the menu of the cafe you selected. You can
+                    see the prices, ingredients, and pictures of each item. You can also customize your order by adding
+                    or removing toppings, sauces, or extras.
                   </p>
 
                 </div>
@@ -188,8 +183,9 @@
                   </h3>
 
                   <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate sint dolores, cumque hic quaerat
-                    ducimus ipsum! Hic qui vero est?
+                    Finally, you need to wait for your order to be cooked and delivered to your doorstep. You can track
+                    the status of your order on the website and get notified when it is ready. You can also pay online
+                    or cash on delivery.
                   </p>
 
                 </div>
@@ -212,9 +208,9 @@
                 Best Cafe In The Campus
               </h2>
 
-              <p class="section-text">
+              <!-- <p class="section-text">
                 Magna sit amet purus gravida quis blandit turpis cursus. Venenatis tellus in metus vulputate.
-              </p>
+              </p> -->
             </li>
 
             <li data-reveal="right">
@@ -241,8 +237,10 @@
                 </div> -->
 
                 <p class="card-text">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore porro quisquam impedit maiores
-                  dolores, ullam facere veritatis voluptatem possimus?
+                  Nescafé in our college where we can Refill our Energy. It has different types of coffee for different
+                  occasions and preferences. We can have it with our friends and food in the canteen, which is clean and
+                  spacious. Nescafé connects us with others and helps us achieve our goals. Nescafé is our college
+                  buddy.
                 </p>
 
               </div>
@@ -262,7 +260,7 @@
                   <ion-icon name="star" aria-hidden="true"></ion-icon>
                   <ion-icon name="star" aria-hidden="true"></ion-icon>
                   <ion-icon name="star" aria-hidden="true"></ion-icon>
-                  <ion-icon name="star" aria-hidden="true"></ion-icon>
+                  <ion-icon name="star-half" aria-hidden="true"></ion-icon>
                   <ion-icon name="star-outline" aria-hidden="true"></ion-icon>
                 </div>
 
@@ -272,8 +270,9 @@
                 </div> -->
 
                 <p class="card-text">
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore porro quisquam impedit maiores
-                  dolores, ullam facere veritatis voluptatem possimus?
+                  Let Me Bake is a place where I can enjoy delicious cakes, pastries, pizzas, burgers, and more. It
+                  offers fresh and quality food and drinks at affordable prices. It also has a cozy and friendly
+                  atmosphere, where I can relax or socialize.
                 </p>
 
               </div>
@@ -305,11 +304,10 @@
             </h2>
 
             <p class="section-text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, natus? Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Dignissimos, minima.
+              You are not just ordering food, you are investing in your happiness.
             </p>
 
-            <a href="#" class="btn btn-primary has-after">Order Now</a>
+            <a href="./customer/Restaurantly/login-page.php" class="btn btn-primary has-after">Order Now</a>
 
           </div>
 
@@ -366,8 +364,7 @@
             <h2 class="h2 section-title" id="testi-label">What customers say about us</h2>
 
             <blockquote class="testi-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam possimus minima perferendis omnis vel,
-              voluptatum reprehenderit! Reprehenderit neque sed fugit?
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem libero vitae eius inventore!
             </blockquote>
 
             <div class="wrapper">
@@ -1361,15 +1358,15 @@
         <div class="footer-brand">
 
           <a href="#" class="logo">
-            <img src="./assets/images/logo-transparent-svg.svg" width="148" height="38" alt="fasteat home">
+            <img src="./assets/images/logo.png" width="148" height="38" alt="fasteat home" style="border-radius: 50%;">
           </a>
 
-          <h2 class="h2 section-title">Find Your Orders </h2>
+          <!-- <h2 class="h2 section-title">Find Your Orders </h2> -->
 
-          <p class="section-text">
+          <!-- <p class="section-text">
             Vitae congue mauris rhoncus aenean. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere.
             Tempus egestas sed sed risus pretium quam.
-          </p>
+          </p> -->
 
         </div>
 
@@ -1487,6 +1484,7 @@
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
 </body>
 

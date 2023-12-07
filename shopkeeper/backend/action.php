@@ -159,6 +159,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'deleteDatacategory') {
 }
 
 
+if (isset($_POST['action']) && $_POST['action'] == 'Accepted') {
+    $orderID = $_POST["orderID"];
+    $newStatus = $_POST["status"];
+
+    $sql = "UPDATE orders SET OrderStatus = '$newStatus' WHERE OrderID = $orderID";
+
+    echo "Order status updated successfully to: " . $newStatus;
+
+    exit();
+}
+
+
 if (isset($_POST['action']) && $_POST['action'] == 'click') {
     $fx = $_POST["fx"];
     // echo $fx;
@@ -171,10 +183,40 @@ if (isset($_POST['action']) && $_POST['action'] == 'click') {
         $foodname = mysqli_query($con, $sql2);
         $hu = mysqli_fetch_assoc($foodname);
         $x = $x."<tr> <td> ".$hu['FoodName']."</td>";
+        $x = $x."<td> ".$rows['Amount']."</td>";
+        $x = $x."<td> ".$rows['Quantity']."</td>";
         $x=$x."</tr>";
-        // $x.=$rows['FoodId'];
     }
+
+    $sql= "SELECT * FROM `orders` WHERE OrderID = $fx";
+    $query = mysqli_query($con, $sql);
+    $rows = mysqli_fetch_assoc($query);
+
+   $x=$x."<tr><th colspan=3>Customer Notes </th></tr>";
+$x=$x."<tr><td colspan=3> ".$rows["CustomersNotes"]."</td></tr>";
+if ($rows['OrderStatus'] == 'Pending') {
+    $x = $x . "<tr class='action'>
+        <td colspan='5' class='action'>
+            <button class='accept' onclick='acceptOrder(" . $rows['OrderID'] . ")'>Accept</button>
+            <button>Reject</button>
+        </td>
+    </tr>";
+} else {
+    $x = $x . "<tr class='action'>
+        <td colspan='5' class='action'>
+            <select class='select'>
+                <option> Baking  </option>
+                <option> Baked </option>
+                <option> Come </option>
+            </select>
+            <button onclick='updateStatus(" . $rows['OrderID'] . ")'>Update</button>
+        </td>
+    </tr>";
+}
+
+    if($rows['OrderStatus']=='Pending')
     echo $x;
+    
 
     // Close the database connection
     mysqli_close($con);

@@ -17,35 +17,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Taste Sculptors Palette: Crafting Gastronomic Art</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <?php include "head.php" ?>
 </head>
-
 <body>
-
   <!-- ======= Header ======= -->
   <?php include 'navbar.php'; ?>
 
@@ -54,7 +28,7 @@
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-8">
-          <h1>Welcome to <span>Taste Sculptors</span></h1>
+          <h1>Welcome to <span>Fast Delivery</span></h1>
           <div class="btns">
             <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Cafe's</a>
             <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Order Now</a>
@@ -81,12 +55,12 @@
             </div>
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3> Welcome to Taste Sculptors, where culinary excellence meets warm hospitality.</h3>
+            <h3> Welcome to Fast Delivery, where culinary excellence meets warm hospitality.</h3>
             <p class="fst-italic">
-              Discover a fusion of flavors at [Restaurant Name], where passion for cuisine meets unforgettable experiences.
+              Discover a fusion of flavors at Fast Delivery, where passion for cuisine meets unforgettable experiences.
             </p>
             <ul>
-              <li><i class="bi bi-check-circle"></i> At Taste Sculptors, we take pride in our commitment to culinary innovation</li>
+              <li><i class="bi bi-check-circle"></i> At Fast Delivery, we take pride in our commitment to culinary innovation</li>
               <li><i class="bi bi-check-circle"></i> Our chefs continually push the boundaries of flavor, combining traditional recipes with modern techniques to craft dishes that are both familiar and refreshingly unique.</li>
             </ul>
             <p>
@@ -106,18 +80,18 @@
     </div>
 
     <div class="container">
-        <div class="row">
+    <div class="row">
+        <div class="col-md-12 text-center">
             <?php
             $cafe = mysqli_query($con, "SELECT * FROM shops ");
             while ($countCafe = mysqli_fetch_array($cafe)) {
             ?>
-                <div class="col-md-4">
-                    <div class="card mb-4" id = "card1">
-                        <div class="overlay">
-                            <h4><?php echo $countCafe['ShopName']; ?></h4>
-                            <p><?php echo $countCafe['ShopDescription']; ?></p>
-                            <a href="nescafe.php?ShopID=<?php echo $countCafe['ShopID'] ?>" class="btn btn-warning">Check it</a>
-                        </div>
+                <div class="card mb-4" id="card1" style="display: inline-block; margin: 0 20px;">
+                    <div class="overlay">
+                        <h4><?php echo $countCafe['ShopName']; ?></h4>
+                        <p style="font-size:20px;"><?php echo $countCafe['ShopDescription']; ?></p>
+                        <a href="nescafe.php?ShopID=<?php echo $countCafe['ShopID'] ?>" class="btn btn-warning">Check </a>
+                        <!-- <a href="letmebake.php?ShopID=<?php echo $countCafe['ShopID'] ?>" class="btn btn-info">Check LetMeBake</a> -->
                     </div>
                 </div>
             <?php
@@ -125,7 +99,12 @@
             ?>
         </div>
     </div>
+</div>
+
 </section>
+
+
+
 
 
   </main><!-- End #main -->
@@ -138,11 +117,11 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="footer-info">
-              <h3>Taste Sculptors</h3>
+              <h3>Fast Delivery</h3>
               <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
+                bhimtal, uttarakand <br>
+                goa goa<br><br>
+                <strong>Phone:</strong> +0  0000 000 000<br>
                 <strong>Email:</strong> info@example.com<br>
               </p>
               <div class="social-links mt-3">
@@ -192,14 +171,7 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong><span>Taste Sculptors</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/Taste Sculptors-restaurant-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong><span>Fast Delivery</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->

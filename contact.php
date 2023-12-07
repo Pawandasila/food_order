@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Fasteat - The Best Restaurants In Your Home</title>
+    <title>Fast delivery - The Best Restaurants In Your Home</title>
     <meta name="title" content="Fasteat - The Best Restaurants In Your Home">
     <meta name="description" content="This is a food html template made by codewithsadee">
 
@@ -28,86 +28,130 @@
     </div>
 
     <header class="header" data-header>
-        <div class="container">
+    <div class="container">
 
-            <a href="#" class="logo">
-                <img src="./assets/images/logo-transparent-svg.svg" width="148" height="28" alt="Fasteat home">
-            </a>
+      <a href="#" class="logo">
+        <!-- Mobile Logo -->
+        <img src="./assets/images/logo.png" width="148" height="28" alt="Fasteat home" class="mobile-logo logo1" style = "border-radius : 50%">
+        <!-- Desktop Logo -->
+      </a>
 
-            <nav class="navbar" data-navbar>
-                <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
-                    <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
-                </button>
+      <nav class="navbar" data-navbar>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+        </button>
 
-                <a href="#" class="logo">
-                    <img src="./assets/images/logo-transparent-svg.svg" width="148" height="38" alt="Fasteat home">
-                </a>
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="Index.php" class="navbar-link" data-nav-link>Home</a>
+          </li>
+          <li class="navbar-item">
+            <a href="about.php" class="navbar-link" data-nav-link>About Us</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#" class="navbar-link" data-nav-link>Cafe's</a>
+          </li>
+          <li class="navbar-item">
+            <a href="contact.php" class="navbar-link" data-nav-link>Contacts</a>
+          </li>
+        </ul>
+      </nav>
 
-                <ul class="navbar-list">
+      <div class="header-action">
+        <button class="cart-btn" aria-label="cart">
+          <ion-icon name="bag" aria-hidden="true"></ion-icon>
+        </button>
+        <a href="./customer/Restaurantly/login-page.php" class="btn btn-primary has-after">Order Now</a>
+      </div>
 
-                    <li class="navbar-item">
-                        <a href="Index.html" class="navbar-link" data-nav-link>Home</a>
-                    </li>
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
 
-                    <li class="navbar-item">
-                        <a href="#" class="navbar-link" data-nav-link>About Us</a>
-                    </li>
+      <div class="overlay" data-overlay data-nav-toggler></div>
 
-                    <li class="navbar-item">
-                        <a href="#" class="navbar-link" data-nav-link>cafe's</a>
-                    </li>
+    </div>
+  </header>     
 
-                    <li class="navbar-item">
-                        <a href="contact.html" class="navbar-link" data-nav-link>Contacts</a>
-                    </li>
-
-                </ul>
-            </nav>
-
-            <div class="header-action">
-                <button class="cart-btn" aria-label="cart">
-                    <ion-icon name="bag" aria-hidden="true"></ion-icon>
-                </button>
-
-                <a href="#" class="btn btn-primary has-after">Order Now</a>
-            </div>
-
-            <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-                <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
-            </button>
-
-            <div class="overlay" data-overlay data-nav-toggler></div>
-
-        </div>
-    </header>
 
 
     <article>
         <main style="margin-top: 10rem;">
 
-            <section class="section newsletter" aria-label="aboutUs">
-                <div class="container">
+            <div class="contact_us_6">
+                <div class="responsive-container-block container">
+                  <form class="form-box" data-reveal="left">
+                    <div class="container-block form-wrapper">
+                      <div class="mob-text">
+                        <p class="text-blk contactus-head">
+                          Get in Touch
+                        </p>
+                        <p class="text-blk contactus-subhead">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Felis diam lectus sapien.
+                        </p>
+                      </div>
+                      <div class="responsive-container-block" id="i2cbk">
+                        <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="i10mt-3">
+                          <p class="text-blk input-title">
+                            FIRST NAME
+                          </p>
+                          <input class="input" id="ijowk-3" name="FirstName" placeholder="Please enter first name...">
+                        </div>
+                        <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="ip1yp">
+                          <p class="text-blk input-title">
+                            EMAIL
+                          </p>
+                          <input class="input" id="ipmgh-3" name="Email" placeholder="Please enter email...">
+                        </div>
+                        
+                        <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="ih9wi">
+                          <p class="text-blk input-title">
+                            PHONE NUMBER
+                          </p>
+                          <input class="input" id="imgis-3" name="PhoneNumber" placeholder="Please enter phone number...">
+                        </div>
+                        <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-12 wk-ipadp-12" id="i634i-3">
+                          <p class="text-blk input-title">
+                            WHAT DO YOU HAVE IN MIND ?
+                          </p>
+                          <textarea class="textinput" id="i5vyy-3" placeholder="Please enter query..."></textarea>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary has-after">
+                        <ion-icon name="notifications-outline" aria-hidden="true"></ion-icon>
 
-                    <figure class="newsletter-banner" data-reveal="left">
-                        <img src="./assets/images/testimonial-banner.png" width="680" height="405" loading="lazy"
-                            alt="Illustration" class="w-100" style="border-radius: 3.2rem;">
-                    </figure>
-
-                    <div class="newsletter-content" data-reveal="right">
-                        <h2 class="h4 section-title">
-                            About Our food
-                        </h2>
-
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem totam debitis,
-                        reprehenderit optio illo molestiae animi at necessitatibus a repellendus.
-                        <hr style="margin: 12px 0px;">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo accusamus nesciunt harum?
-                        <hr style="margin: 12px 0px;">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nihil ut aspernatur aut.
+                        <span class="span" data-reveal="right">submit</span>
+                    </button>
                     </div>
-
+                  </form>
+                  <div class="responsive-cell-block wk-desk-7 wk-ipadp-12 wk-tab-12 wk-mobile-12" id="i772w">
+                    <div class="map-part" data-reveal="left">
+                      <p class="text-blk map-contactus-head" id="w-c-s-fc_p-1-dm-id">
+                        Reach us at
+                      </p>
+                      <p class="text-blk map-contactus-subhead">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Felis diam lectus sapien.
+                      </p>
+                      <div class="social-media-links mob">
+                        <a class="social-icon-link" href="#" id="ix94i-2-2" data-reveal="right">
+                          <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-twitter.png">
+                        </a>
+                        <a class="social-icon-link" href="#" id="itixd" data-reveal="right">
+                          <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-facebook.png">
+                        </a>
+                        <a class="social-icon-link" href="#" id="izxvt" data-reveal="left">
+                          <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-google.png">
+                        </a>
+                        <a class="social-icon-link" href="#" id="izldf-2-2" data-reveal="left">
+                          <img class="link-img image-block" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-instagram.png">
+                        </a>
+                      </div>
+                      <div class="map-box container-block">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </section>
+              </div> 
 
 
             <section class="section newsletter" aria-label="newsletter">

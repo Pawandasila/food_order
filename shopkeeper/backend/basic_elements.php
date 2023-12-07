@@ -201,7 +201,7 @@ session_start();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="addRowForm">Add Row</button>
+                    <button type="submit" class="btn btn-primary" id="addRowFormBtn">Add Row</button>
                 </div>  
 
               </form>
@@ -362,43 +362,40 @@ session_start();
 
 <script>
     $(document).ready(function () {
-        // Function to hide the modal
-        function hideAddRowModal() {
-            $("#addRowModal").modal("hide");
-        }
+  // Function to hide the modal
+  function hideAddRowModal() {
+    $("#addRowModal").modal("hide");
+  }
 
-        // $("#addRowButton").click(function () {
-        //   hideAddRowModal();
-        // });
+  $('#addRowFormBtn').on('submit', function (e) {
+    e.preventDefault();
+    alert("hello");
 
-        $('#addRowForm').on('submit', function (e) {
-          alert("hello");
-            e.preventDefault();
-            var category = $('#newCategory').val();
-            var shopId = $('#shopId').val();
+    var category = $('#newCategory').val();
+    var shopId = $('#shopId').val();
 
-            alert(category);
-            // alert(shopId);
+    alert(category);
 
-            $.ajax({
-                url: 'action.php',
-                type: 'POST',
-                data: 'action=addCategory&category=' + category,
-                success: function (data) {
-                  alert(data)
-                    var td = "<tr><td>" + category + "</td></tr>"
-                    $('#category').append(td);
-                    $('#newCategory').val('');
-                    
-                    // Hide the modal after adding a new row
-                    hideAddRowModal();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('AJAX request failed:', textStatus, errorThrown);
-                }
-            });
-        });
+    $.ajax({
+      url: 'action.php',
+      type: 'POST',
+      data: 'action=addCategory&category=' + category,
+      success: function (data) {
+        alert(data);
+        var td = "<tr><td>" + category + "</td></tr>";
+        $('#category').append(td);
+        $('#newCategory').val('');
+
+        // Hide the modal after adding a new row
+        hideAddRowModal();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('AJAX request failed:', textStatus, errorThrown);
+      }
     });
+  });
+});
+
 </script>
 
 <script>

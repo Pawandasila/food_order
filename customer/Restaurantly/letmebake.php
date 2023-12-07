@@ -268,24 +268,26 @@ if (isset($_POST['submit'])){
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="menu-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <?php
-                $menue = mysqli_query($con, "SELECT * FROM foodcategory ");
-                while ($mennShow = mysqli_fetch_array($menue)) {
-              ?>
-              <li data-filter=".<?php echo $mennShow['foodCatergoryName'] ?>">
-                <?php echo $mennShow['foodCatergoryName'] ?>
-              </li>
-              <?php
-                }
-              ?>
-            </ul>
-          </div>
-        </div>
+    <div class="col-lg-12 d-flex justify-content-center">
+        <ul id="menu-flters">
+            <li data-filter="*" class="filter-active">All</li>
+            <?php
+            $menu = mysqli_query($con, "SELECT DISTINCT foodCatergoryName FROM foodcategory WHERE shopsId = 39");
+            while ($menuItem = mysqli_fetch_array($menu)) {
+                $categoryName = $menuItem['foodCatergoryName'];
+            ?>
+                <li data-filter=".<?php echo strtolower($categoryName); ?>">
+                    <?php echo $categoryName; ?>
+                </li>
+            <?php
+            }
+            ?>
+        </ul>
+    </div>
+</div>
 
-        <div class="row menu-container justify-content-center" data-aos="fade-up" data-aos-delay="400">
+
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="400">
   <?php
   $result = mysqli_query($con, "SELECT * FROM fooditem WHERE shopsId = $shopId");
   while ($row = mysqli_fetch_array($result)) {

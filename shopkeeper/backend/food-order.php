@@ -14,12 +14,7 @@ session_start();
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
+    
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
@@ -215,8 +210,6 @@ session_start();
                 width: 100%;
             }
         }
-
-       
     </style>
 </head>
 
@@ -268,8 +261,9 @@ session_start();
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <!-- <form id="otpForm"> -->
                                             <?php 
-                                            $result = mysqli_query($con, "SELECT * FROM orders");
+                                            $result = mysqli_query($con, "SELECT * FROM orders WHERE OrderStatus != 'Delivered'");
                                             while ($row = mysqli_fetch_array($result)){
                                                 $customerID = $row["CustomerID"];
                                                 $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
@@ -279,9 +273,47 @@ session_start();
                                                 <td>
                                                     <?php echo $userRow['first_name']; ?>
                                                 </td>
-                                                <td><label class="badge badge-info">
-                                                        <?php echo "pending" //$row['CustomerStatus'] ?>
-                                                    </label></td>
+                                                <td>
+                                                    <?php 
+                                                    if ($row['OrderStatus'] == "Pending") {
+                                                    ?>
+                                                    <label class="badge badge-warning">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    } elseif ($row['OrderStatus'] == "Fixed") {
+                                                    ?>
+                                                    <label class="badge badge-gradient-primary">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    } elseif ($row['OrderStatus'] == "Accepted") {
+                                                    ?>
+                                                    <label class="badge badge-gradient-danger">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    } elseif ($row['OrderStatus'] == "Baking") {
+                                                    ?>
+                                                    <label class="badge badge-gradient-info">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    } elseif ($row['OrderStatus'] == "Baked") {
+                                                    ?>
+                                                    <label class="badge badge-success">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    } elseif ($row['OrderStatus'] == "Come") {
+                                                    ?>
+                                                    <label class="badge badge-primary">
+                                                        <?php echo $row['OrderStatus']; ?>
+                                                    </label>
+                                                    <?php 
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <?php echo $row['TotalBills']?>
                                                 </td>
@@ -289,21 +321,25 @@ session_start();
                                                     <?php echo date('Y-m-d H:i:s');?>
                                                 </td>
                                                 <td>
-                                                    <input value="<?php echo $row['OTP'] ?>" type="number" name="Otp"
-                                                        id="Otp" maxlength="4" oninput="maxLengthCheck(this)"
-                                                        style="width: 70px; text-align:center;">
-                                                        <button class = "btn btn-primary">submit</button>
+                                                    
+                                                        <input style="width: 70px; text-align: center;"   type="number" name="otp" id="otp" maxlength="4"
+                                                            oninput="maxLengthCheck(this)">
+                                                        <!-- <button type="button" id="otpbtn" class="btn btn-primary" onclick="submitOTP()">Submit</button> -->
+                                                        <button type="button" id="otpbtn" class="btn btn-primary" >Submit</button>
+                                                        <div id="error-message" style="color: red; display: none;"></div>
                                                 </td>
                                                 <td>
-                                                    <button class="box" style="background:transparent; border:none;" value="<?php echo $row['OrderID'] ?>">
+                                                    <button class="box" style="background:transparent; border:none;"
+                                                        value="<?php echo $row['OrderID'] ?>">
                                                         <i class="fa fa-eye" style="color:black; font-size:22px;"></i>
-                                                    </button>                                                    
+                                                    </button>
                                                 </td>
                                             </tr>
 
                                             <?php     
                                             }
                                             ?>
+                                        <!-- </form> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -316,85 +352,78 @@ session_start();
                     <div id="myModal" class="modal">
                         <div class="modal-content">
                             <span class="close" onclick="closeModal()">&times;</span>
-                            <h2>Order Details</h2>    
-                            <form class= "form" method="post">
+                            <h2>Order Details</h2>
+                            <form class="form" method="post">
                                 <table style="border-collapse: collapse;" id="foodDetails">
-                                    
+
                                     <?php 
-                                    // $result = mysqli_query($con, "SELECT * FROM orders ");
-                                // while ($row = mysqli_fetch_array($result)){
-                                    // $customerID = $row["CustomerID"];
-                                    // $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
-                                    // $userRow = mysqli_fetch_array($user); -->
-                                ?> 
-                                    <!-- <tr>
-
-                                        <td>
-                                            
-                                            <?php echo 'Paneer Tikka' ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['TotalBills']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo 'Chole' ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row['CustomersNotes'] ?>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="status" value="">
-                                        </td>
-
-                                    </tr> -->
-                                    <!-- <tr class="action">
+                                    $result = mysqli_query($con, "SELECT * FROM orders ");
+                                while ($row = mysqli_fetch_array($result)){
+                                    $customerID = $row["CustomerID"];
+                                    $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
+                                    $userRow = mysqli_fetch_array($user); 
+                                ?>
+                                     <tr>
+                                        <td><?php echo 'Paneer Tikka' ?></td>
+                                        <td><?php echo $row['TotalBills']; ?></td>
+                                        <td><?php echo 'Chole' ?></td>
+                                        <td><?php echo $row['CustomersNotes'] ?></td>
+                                        <td><input type="text" id="status" value=""></td>
+                                    </tr> 
+                                    <tr class="action">
                                         <td colspan="5" class="action">
                                             <button class="accept" onclick="performAction('accept')">Accept</button>
                                             <button onclick="performAction('reject')">Reject</button>
                                         </td>
-                                    </tr> -->
-                                     <?php 
-                                        //} 
-                                     ?> 
+                                    </tr>
+                                    <?php 
+                                        } 
+                                     ?>
                                     <div class="table-separator"></div>
                                 </table>
                             </form>
-                            
+
                         </div>
                     </div>
 
-                      <!-- Animated Modal -->
-                      <div id="animatedModal" class="modal">
-                            <div class="modal-content">
-                                <span class="close" onclick="closeAnimatedModal()">&times;</span>
-                                <h2>Order Details</h2>
-                                <?php 
+                    <!-- Animated Modal -->
+                    <div id="animatedModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeAnimatedModal()">&times;</span>
+                            <h2>Order Details</h2>
+                            <?php 
                                     $result = mysqli_query($con, "SELECT * FROM orders");
                                     while ($row = mysqli_fetch_array($result)){
                                         $customerID = $row["CustomerID"];
                                         $user = mysqli_query($con, "SELECT * FROM user_profile where id = ".$customerID."");
                                         $userRow = mysqli_fetch_array($user);
                                 ?>
-                                <table style="border-collapse: collapse;">
-                                    <!-- Nested table for Frontend Table Details and item details -->
-                                    <tr>
-                                        <th>Item Name</th>
-                                        <th>Total Price</th>
-                                        <th>Quantity</th>
-                                        <th><strong>Customer Notes:</strong></th>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo 'masala' ?></td>
-                                        <td><?php echo $row['TotalBills']; ?></td>
-                                        <td><?php echo 'Chole' ?></td>
-                                        <td><?php echo $row['CustomersNotes'] ?></td>
-                                    </tr>
-                                    
-                                    <div class="table-separator"></div>
-                                </table>
-                                <?php } ?>
-                            </div>
+                            <table style="border-collapse: collapse;">
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Total Price</th>
+                                    <th>Quantity</th>
+                                    <th><strong>Customer Notes:</strong></th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php echo 'masala' ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['TotalBills']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo 'Chole' ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['CustomersNotes'] ?>
+                                    </td>
+                                </tr>
+                                <div class="table-separator"></div>
+                            </table>
+                            <?php } ?>
                         </div>
+                    </div>
 
 
                     <div class="col-lg-6 grid-margin stretch-card table-responsive" id="food-order-table"
@@ -416,7 +445,7 @@ session_start();
                                         </thead>
                                         <tbody>
                                             <?php 
-                                            $result = mysqli_query($con, "SELECT * FROM orders");
+                                            $result = mysqli_query($con, "SELECT * FROM orders WHERE OrderStatus ='Delivered'");
                                             // $user = mysqli_query($con,"SELECT * FROM ");
                                             while ($row = mysqli_fetch_array($result)){
                                             ?>
@@ -434,8 +463,9 @@ session_start();
                                                     <?php echo $row['TotalBills'] ?>
                                                 </td>
                                                 <td>
-                                                <button style="background:transparent; border:none;" id= "myButton" ></button>
-                                                        <i class="fa fa-eye" style="color:black ; font-size:22px;"></i>
+                                                    <button style="background:transparent; border:none;"
+                                                        id="myButton"></button>
+                                                    <i class="fa fa-eye" style="color:black ; font-size:22px;"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -448,109 +478,95 @@ session_start();
                                 </div>
                             </div>
                         </div>
-
-                      
-
-                     
                     </div>
-                    </div>
-
-                    </div>
-                    <!-- content-wrapper ends -->
-
                 </div>
-                <!-- main-panel ends -->
+
             </div>
-            <!-- page-body-wrapper ends -->
+            <!-- content-wrapper ends -->
+
         </div>
-        <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-        <script src="../../assets/js/off-canvas.js"></script>
-        <script src="../../assets/js/hoverable-collapse.js"></script>
-        <script src="../../assets/js/misc.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-        <script src="../../assets/js/file-upload.js"></script>
-        <script>
-            const foodTab = document.getElementById("food-tab");
-            const foodOrderTab = document.getElementById("food-order-tab");
-            const foodTableContainer = document.getElementById("food-table");
-            const foodOrderTableContainer = document.getElementById("food-order-table");
-            foodTab.addEventListener("click", () => {
-                foodTableContainer.style.display = "block";
-                foodOrderTableContainer.style.display = "none";
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+    </div>
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/file-upload.js"></script>
+
+    <script>
+        const foodTab = document.getElementById("food-tab");
+        const foodOrderTab = document.getElementById("food-order-tab");
+        const foodTableContainer = document.getElementById("food-table");
+        const foodOrderTableContainer = document.getElementById("food-order-table");
+        foodTab.addEventListener("click", () => {
+            foodTableContainer.style.display = "block";
+            foodOrderTableContainer.style.display = "none";
+        });
+
+        foodOrderTab.addEventListener("click", () => {
+            foodTableContainer.style.display = "none";
+            foodOrderTableContainer.style.display = "block";
+        });
+        const tabLinks = document.querySelectorAll(".tab-link");
+        tabLinks.forEach(tab => {
+            tab.addEventListener("click", function (event) {
+                event.preventDefault();
+                tabLinks.forEach(link => link.classList.remove("active"));
+                this.classList.add("active");
+            });
+        });
+        const tableRows = Array.from(document.querySelectorAll("#food-table tbody tr"));
+        let sortOrderFirstName = 0;
+        function sortTable() {
+            tableRows.sort(function (a, b) {
+                const textA = a.cells[1].textContent.trim();
+                const textB = b.cells[1].textContent.trim();
+                return sortOrderFirstName * textA.localeCompare(textB);
             });
 
-            foodOrderTab.addEventListener("click", () => {
-                foodTableContainer.style.display = "none";
-                foodOrderTableContainer.style.display = "block";
-            });
-        </script>
-
-        <script>
-            const tabLinks = document.querySelectorAll(".tab-link");
-            tabLinks.forEach(tab => {
-                tab.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    tabLinks.forEach(link => link.classList.remove("active"));
-                    this.classList.add("active");
-                });
-            });
-        </script>
-
-        <script>
-            const tableRows = Array.from(document.querySelectorAll("#food-table tbody tr"));
-            let sortOrderFirstName = 0;
-            function sortTable() {
-                tableRows.sort(function (a, b) {
-                    const textA = a.cells[1].textContent.trim();
-                    const textB = b.cells[1].textContent.trim();
-                    return sortOrderFirstName * textA.localeCompare(textB);
-                });
-
-                const tableBody = document.querySelector("#food-table tbody");
-                tableRows.forEach(row => tableBody.appendChild(row));
+            const tableBody = document.querySelector("#food-table tbody");
+            tableRows.forEach(row => tableBody.appendChild(row));
+        }
+        function toggleDropdown() {
+            var dropdownMenu = document.querySelector('.dropdown[aria-labelledby="dropdownButton"]');
+            if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
+                dropdownMenu.style.display = 'flex';
+            } else {
+                dropdownMenu.style.display = 'none';
             }
-        </script>
+        }
 
-        <script>
-            function toggleDropdown() {
-                var dropdownMenu = document.querySelector('.dropdown[aria-labelledby="dropdownButton"]');
-                if (dropdownMenu.style.display === 'none' || dropdownMenu.style.display === '') {
-                    dropdownMenu.style.display = 'flex';
-                } else {
-                    dropdownMenu.style.display = 'none';
-                }
-            }
+        var dropdownButton = document.getElementById('dropdownButton');
+        dropdownButton.addEventListener('click', toggleDropdown);
+    </script>
 
-            var dropdownButton = document.getElementById('dropdownButton');
-            dropdownButton.addEventListener('click', toggleDropdown);
-        </script>
+    <!-- JavaScript for eye Modal Handling -->
 
-        <!-- JavaScript for eye Modal Handling -->
+    <script>
 
-        <script>
-
-           $(document).ready(function () {
-        $(".fa-eye").on("click", function (){
-            var orderID = $(this).closest("tr").find(".order-id").text();
-            openModal(orderID);
+        $(document).ready(function () {
+            $(".fa-eye").on("click", function () {
+                var orderID = $(this).closest("tr").find(".order-id").text();
+                openModal(orderID);
             });
-            
+
             $('.box').on("click", function () {
-                // alert($(this).val());
                 $.ajax({
                     url: "action.php",
                     method: "POST",
-                    data: 'action=click&fx='+ $(this).val(),
+                    data: 'action=click&fx=' + $(this).val(),
                     success: function (response) {
-                        // alert("this");
-                        // alert(response);
                         $('#foodDetails').empty();
-                        table = "<tr><th>Item Name</th><th>Total Price</th><th>Quantity</th><th><strong>Customer Notes:</strong></th><th><strong>Shopkeeper Status Update:</strong></th></tr>";
+                        table = "<tr><th>Item Name</th><th>Total Price</th><th>Quantity</th></tr>";
                         $('#foodDetails').append(table);
                         $('#foodDetails').append(response);
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("AJAX Error: " + textStatus + " " + errorThrown);
@@ -558,45 +574,123 @@ session_start();
                 });
             });
 
-        function openModal(orderID) {
-            var modal = $("#myModal");
-            modal.css("display", "block");
-            $("#food-table").css("filter", "blur(5px)");
+            function openModal(orderID) {
+                var modal = $("#myModal");
+                modal.css("display", "block");
+                $("#food-table").css("filter", "blur(5px)");
+            }
+
+            function closeModal() {
+                var modal = $("#myModal");
+                modal.css("display", "none");
+                $("#food-table").css("filter", "none");
+            }
+        });
+
+        function openAnimatedModal(orderID) {
+            var modal = document.getElementById("animatedModal");
+            modal.style.display = "block";
+            document.getElementById("food-order-table").style.filter = "blur(5px)";
         }
 
         function closeModal() {
-            var modal = $("#myModal");
-            modal.css("display", "none");
-            $("#food-table").css("filter", "none");
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            document.getElementById("food-table").style.filter = "none";
         }
-    });
-            function openAnimatedModal(orderID) {
-                var modal = document.getElementById("animatedModal");
-                modal.style.display = "block";
-                document.getElementById("food-order-table").style.filter = "blur(5px)";
-            }
+
+        function closeAnimatedModal() {
+            var modal = document.getElementById("animatedModal");
+            modal.style.display = "none";
+            document.getElementById("food-order-table").style.filter = "none";
+        }
 
 
-            function closeModal() {
-                var modal = document.getElementById("myModal");
-                modal.style.display = "none";
+        function performAction(action) {
+            closeModal();
+        }
 
-                // Remove blur effect from the background
-                document.getElementById("food-table").style.filter = "none";
-            }
+    </script>
 
-            function closeAnimatedModal() {
-                var modal = document.getElementById("animatedModal");
-                modal.style.display = "none";
-                document.getElementById("food-order-table").style.filter = "none";
-            }
+    <script>
+        function acceptOrder(orderID) {
+            $.ajax({
+                url: "accept_order.php",
+                method: "POST",
+                data: { orderID: orderID },
+                success: function (response) {
+                    alert(response);
+                    // location.href.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle error
+                    alert("AJAX Error: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
 
+        function updateStatus(orderID) {
+            $.ajax({
+                url: "accept_order.php",
+                method: "POST",
+                data: { orderID: orderID, reject: true },
+                success: function (response) {
+                    alert(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("AJAX Error: " + textStatus + " " + errorThrown);
+                }
+            });
+        }
 
-            function performAction(action) {
-                // accept or reject function
-                closeModal();
-            }
-        </script>   
+//   function submitOTP() {
+//         var enteredOTP = $('#otp').val();
+//         if (validateOTP(enteredOTP)) {
+//             alert(enteredOTP)
+//             $.ajax({
+//                 url: "accept_order.php",
+//                 method: "POST",
+//                 data: { enteredOTP: enteredOTP ,
+//                 enteredOTP: enteredOTP},
+//                 success: function (response) {
+//                     if (response=='1'){
+//                         displayErrorMessage("OTP verification accepted!")
+//                     } 
+//                     else {
+//                         displayErrorMessage("OTP verification failed ");
+//                     }
+//                 },
+//                 error: function (jqXHR, textStatus, errorThrown) {
+//                     // alert("AJAX Error: " + textStatus + " " + errorThrown);
+//                 }
+//             });
+//         }
+//     }
+
+    // Validate OTP input format and display error message if invalid
+    // function validateOTP(input) {
+    //     var regex = /^\d{4}$/;
+    //     if (!regex.test(input)) {
+    //         displayErrorMessage("Invalid OTP format. Please enter a 4-digit numerical OTP.");
+    //         return false;
+    //     } else {
+    //         hideErrorMessage();
+    //         return true;
+    //     }
+    // }
+
+    // function displayErrorMessage(message) {
+    //     $('#error-message').text(message).show();
+    // }
+
+    // function hideErrorMessage() {
+    //     $('#error-message').hide();
+    // }
+
+    // $('#otp').on('input', function () {
+    //     validateOTP(this.value);
+    // });
+    </script>
 
 </body>
 
